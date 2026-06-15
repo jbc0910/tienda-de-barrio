@@ -1,5 +1,5 @@
 ---
-// src/pages/admin.astro — Owner Admin Dashboard (Mobile-First & Fully Interactive)
+// src/pages/admin.astro — Owner Admin Dashboard (Mobile-First, Secure Access & Fully Interactive)
 import Layout from '../layouts/Layout.astro';
 ---
 
@@ -7,220 +7,233 @@ import Layout from '../layouts/Layout.astro';
   title="Panel Admin – Tienda de Barrio"
   description="Panel de administración del dueño de la tienda. Gestión de inventario, categorías y configuración."
 >
-  <!-- ═══════════════ HEADER ═══════════════ -->
-  <header class="sticky top-0 z-50 bg-[#012d1d] text-white px-4 py-3 flex items-center justify-between shadow-elevated">
-    <div class="flex items-center gap-2.5">
-      <span class="material-symbols-outlined text-[#a5d0b9] text-[26px]">admin_panel_settings</span>
-      <div>
-        <h1 class="font-jakarta text-[18px] font-bold leading-none">Panel Admin</h1>
-        <p class="text-[11px] text-[#86af99]">Tienda de Barrio</p>
+  <!-- ═══════════════ DASHBOARD CONTAINER ═══════════════ -->
+  <div id="admin-dashboard-container" class="hidden flex-col min-h-dvh">
+    <!-- ═══════════════ HEADER ═══════════════ -->
+    <header class="sticky top-0 z-50 bg-[#012d1d] text-white px-4 py-3 flex items-center justify-between shadow-elevated">
+      <div class="flex items-center gap-2.5">
+        <span class="material-symbols-outlined text-[#a5d0b9] text-[26px]">admin_panel_settings</span>
+        <div>
+          <h1 class="font-jakarta text-[18px] font-bold leading-none">Panel Admin</h1>
+          <p class="text-[11px] text-[#86af99]">Tienda de Barrio</p>
+        </div>
       </div>
-    </div>
-    <div class="flex items-center gap-2">
-      <button
-        class="p-2 rounded-full hover:bg-white/10 active:scale-90 transition-all"
-        id="admin-search-btn"
-        aria-label="Buscar producto"
-        title="Buscar producto"
-      >
-        <span class="material-symbols-outlined text-[22px]">search</span>
-      </button>
-      <button
-        class="p-2 rounded-full hover:bg-white/10 active:scale-90 transition-all"
-        aria-label="Notificaciones"
-        title="Notificaciones"
-      >
-        <span class="material-symbols-outlined text-[22px]">notifications</span>
-      </button>
-    </div>
-  </header>
-
-  <!-- ═══════════════ MAIN ═══════════════ -->
-  <main class="flex-1 pb-28 overflow-y-auto">
-
-    <!-- ── Tab panels ── -->
-    <!-- PRODUCTS TAB (default active) -->
-    <div id="tab-products" class="tab-panel fade-up">
-
-      <!-- Search (toggle visibility) -->
-      <div id="admin-search-bar" class="hidden px-4 pt-3">
-        <input
-          id="admin-search-input"
-          type="search"
-          placeholder="Buscar producto..."
-          class="w-full h-11 px-4 rounded-xl bg-white border border-[#c1c8c2] focus:border-[#012d1d] focus:ring-2 focus:ring-[#012d1d]/20 outline-none text-[14px] placeholder:text-[#c1c8c2]"
-          aria-label="Buscar productos en el inventario"
-        />
-      </div>
-
-      <!-- Metric Cards -->
-      <section class="px-4 pt-4 grid grid-cols-2 gap-3" aria-label="Estadísticas del inventario">
-        <!-- Total Products -->
-        <div class="bg-white rounded-2xl p-4 shadow-card border-l-4 border-[#012d1d] col-span-2 flex justify-between items-center">
-          <div>
-            <p class="text-[11px] text-[#717973] uppercase font-semibold tracking-wide">Total de Productos</p>
-            <p id="metric-total-products" class="text-[28px] font-bold text-[#012d1d] font-jakarta leading-none mt-0.5">0</p>
-            <p class="text-[12px] text-[#414844] mt-0.5">productos en inventario</p>
-          </div>
-          <span class="material-symbols-outlined text-[#012d1d] text-[40px] opacity-20">inventory_2</span>
-        </div>
-
-        <!-- Out of Stock -->
-        <div class="bg-white rounded-2xl p-4 shadow-card border-l-4 border-[#ba1a1a]">
-          <p class="text-[11px] text-[#717973] uppercase font-semibold">Agotados</p>
-          <p id="metric-out-of-stock" class="text-[24px] font-bold text-[#ba1a1a] font-jakarta">0</p>
-          <span class="material-symbols-outlined text-[#ba1a1a] opacity-30 text-[20px]">warning</span>
-        </div>
-
-        <!-- Low Stock -->
-        <div class="bg-white rounded-2xl p-4 shadow-card border-l-4 border-[#fd8603]">
-          <p class="text-[11px] text-[#717973] uppercase font-semibold">Stock bajo</p>
-          <p id="metric-low-stock" class="text-[24px] font-bold text-[#fd8603] font-jakarta">0</p>
-          <span class="material-symbols-outlined text-[#fd8603] opacity-30 text-[20px]">production_quantity_limits</span>
-        </div>
-
-        <!-- Total Value -->
-        <div class="bg-white rounded-2xl p-4 shadow-card border-l-4 border-[#934b00] col-span-2 flex justify-between items-center">
-          <div>
-            <p class="text-[11px] text-[#717973] uppercase font-semibold tracking-wide">Valor estimado en stock</p>
-            <p id="metric-total-value" class="text-[22px] font-bold text-[#934b00] font-jakarta">$0</p>
-          </div>
-          <span class="material-symbols-outlined text-[#934b00] text-[36px] opacity-20">payments</span>
-        </div>
-      </section>
-
-      <!-- Section Header + Add button -->
-      <div class="flex items-center justify-between px-4 mt-6 mb-3">
-        <h2 class="font-jakarta text-[18px] font-bold text-[#191c1d]">Inventario</h2>
+      <div class="flex items-center gap-2">
         <button
-          id="add-product-btn"
-          class="flex items-center gap-1.5 bg-[#fd8603] text-[#5f2f00] text-[12px] font-bold px-3 py-2 rounded-full active:scale-95 transition-all shadow-orange"
-          title="Agregar nuevo producto"
+          class="p-2 rounded-full hover:bg-white/10 active:scale-90 transition-all"
+          id="admin-search-btn"
+          aria-label="Buscar producto"
+          title="Buscar producto"
         >
-          <span class="material-symbols-outlined text-[16px]">add</span>
-          Nuevo
+          <span class="material-symbols-outlined text-[22px]">search</span>
+        </button>
+        <button
+          class="p-2 rounded-full hover:bg-white/10 active:scale-90 transition-all"
+          aria-label="Notificaciones"
+          title="Notificaciones"
+        >
+          <span class="material-symbols-outlined text-[22px]">notifications</span>
         </button>
       </div>
+    </header>
 
-      <!-- Product Cards List -->
-      <section id="admin-products-list" class="px-4 space-y-3" aria-label="Lista de productos">
-        <!-- Rendered dynamically on client -->
-      </section>
-    </div>
+    <!-- ═══════════════ MAIN ═══════════════ -->
+    <main class="flex-1 pb-28 overflow-y-auto">
 
-    <!-- CATEGORIES TAB -->
-    <div id="tab-categories" class="tab-panel hidden fade-up px-4 pt-4">
-      <h2 class="font-jakarta text-[20px] font-bold text-[#191c1d] mb-4">Categorías</h2>
-      <div class="space-y-3">
-        {['Frutas y Verduras', 'Lácteos', 'Bebidas', 'Snacks', 'Panadería', 'Limpieza'].map((cat) => (
-          <div class="bg-white rounded-2xl p-4 shadow-card flex items-center justify-between border border-[#c1c8c2]/20">
-            <span class="text-[15px] font-semibold text-[#191c1d]">{cat}</span>
-            <div class="flex items-center gap-2">
-              <button class="p-2 rounded-xl hover:bg-[#edeeef] active:scale-90 transition-all" title={`Editar categoría ${cat}`}>
-                <span class="material-symbols-outlined text-[18px] text-[#414844]">edit</span>
-              </button>
-              <button class="p-2 rounded-xl hover:bg-[#ffdad6] active:scale-90 transition-all" title={`Eliminar categoría ${cat}`}>
-                <span class="material-symbols-outlined text-[18px] text-[#ba1a1a]">delete</span>
-              </button>
+      <!-- ── Tab panels ── -->
+      <!-- PRODUCTS TAB (default active) -->
+      <div id="tab-products" class="tab-panel fade-up">
+
+        <!-- Search (toggle visibility) -->
+        <div id="admin-search-bar" class="hidden px-4 pt-3">
+          <input
+            id="admin-search-input"
+            type="search"
+            placeholder="Buscar producto..."
+            class="w-full h-11 px-4 rounded-xl bg-white border border-[#c1c8c2] focus:border-[#012d1d] focus:ring-2 focus:ring-[#012d1d]/20 outline-none text-[14px] placeholder:text-[#c1c8c2]"
+            aria-label="Buscar productos en el inventario"
+          />
+        </div>
+
+        <!-- Metric Cards -->
+        <section class="px-4 pt-4 grid grid-cols-2 gap-3" aria-label="Estadísticas del inventario">
+          <!-- Total Products -->
+          <div class="bg-white rounded-2xl p-4 shadow-card border-l-4 border-[#012d1d] col-span-2 flex justify-between items-center">
+            <div>
+              <p class="text-[11px] text-[#717973] uppercase font-semibold tracking-wide">Total de Productos</p>
+              <p id="metric-total-products" class="text-[28px] font-bold text-[#012d1d] font-jakarta leading-none mt-0.5">0</p>
+              <p class="text-[12px] text-[#414844] mt-0.5">productos en inventario</p>
             </div>
+            <span class="material-symbols-outlined text-[#012d1d] text-[40px] opacity-20">inventory_2</span>
           </div>
-        ))}
-        <button class="w-full h-12 border-2 border-dashed border-[#c1c8c2] rounded-2xl flex items-center justify-center gap-2 text-[#717973] text-[14px] font-semibold hover:border-[#012d1d] hover:text-[#012d1d] transition-all active:scale-[0.98]" title="Agregar nueva categoría">
-          <span class="material-symbols-outlined text-[20px]">add</span>
-          Nueva Categoría
-        </button>
-      </div>
-    </div>
 
-    <!-- STORE CONFIG TAB -->
-    <div id="tab-store" class="tab-panel hidden fade-up px-4 pt-4">
-      <h2 class="font-jakarta text-[20px] font-bold text-[#191c1d] mb-4">Configuración de la Tienda</h2>
-      <div class="bg-[#c1ecd4] rounded-2xl p-6 text-center border border-[#a5d0b9] mb-4">
-        <span class="material-symbols-outlined text-[48px] text-[#012d1d]">store</span>
-        <p class="font-jakarta text-[18px] font-bold text-[#012d1d] mt-2">Tu tienda está activa</p>
-        <p class="text-[13px] text-[#1b4332] mt-1">Los cambios se aplican de inmediato en la vista del cliente</p>
+          <!-- Out of Stock -->
+          <div class="bg-white rounded-2xl p-4 shadow-card border-l-4 border-[#ba1a1a]">
+            <p class="text-[11px] text-[#717973] uppercase font-semibold">Agotados</p>
+            <p id="metric-out-of-stock" class="text-[24px] font-bold text-[#ba1a1a] font-jakarta">0</p>
+            <span class="material-symbols-outlined text-[#ba1a1a] opacity-30 text-[20px]">warning</span>
+          </div>
+
+          <!-- Low Stock -->
+          <div class="bg-white rounded-2xl p-4 shadow-card border-l-4 border-[#fd8603]">
+            <p class="text-[11px] text-[#717973] uppercase font-semibold">Stock bajo</p>
+            <p id="metric-low-stock" class="text-[24px] font-bold text-[#fd8603] font-jakarta">0</p>
+            <span class="material-symbols-outlined text-[#fd8603] opacity-30 text-[20px]">production_quantity_limits</span>
+          </div>
+
+          <!-- Total Value -->
+          <div class="bg-white rounded-2xl p-4 shadow-card border-l-4 border-[#934b00] col-span-2 flex justify-between items-center">
+            <div>
+              <p class="text-[11px] text-[#717973] uppercase font-semibold tracking-wide">Valor estimado en stock</p>
+              <p id="metric-total-value" class="text-[22px] font-bold text-[#934b00] font-jakarta">$0</p>
+            </div>
+            <span class="material-symbols-outlined text-[#934b00] text-[36px] opacity-20">payments</span>
+          </div>
+        </section>
+
+        <!-- Section Header + Add button -->
+        <div class="flex items-center justify-between px-4 mt-6 mb-3">
+          <h2 class="font-jakarta text-[18px] font-bold text-[#191c1d]">Inventario</h2>
+          <button
+            id="add-product-btn"
+            class="flex items-center gap-1.5 bg-[#fd8603] text-[#5f2f00] text-[12px] font-bold px-3 py-2 rounded-full active:scale-95 transition-all shadow-orange"
+            title="Agregar nuevo producto"
+          >
+            <span class="material-symbols-outlined text-[16px]">add</span>
+            Nuevo
+          </button>
+        </div>
+
+        <!-- Product Cards List -->
+        <section id="admin-products-list" class="px-4 space-y-3" aria-label="Lista de productos">
+          <!-- Rendered dynamically on client -->
+        </section>
       </div>
-      <form id="store-config-form" class="space-y-4" novalidate>
-        <div class="bg-white rounded-2xl p-4 shadow-card border border-[#c1c8c2]/20 flex flex-col gap-1">
-          <label for="store-name-input" class="text-[12px] text-[#717973] uppercase font-semibold">Nombre de la tienda</label>
-          <input id="store-name-input" type="text" required class="w-full h-11 px-4 rounded-xl border border-[#c1c8c2] focus:border-[#012d1d] focus:ring-2 focus:ring-[#012d1d]/20 outline-none text-[15px] font-semibold text-[#191c1d]" />
+
+      <!-- CATEGORIES TAB -->
+      <div id="tab-categories" class="tab-panel hidden fade-up px-4 pt-4">
+        <h2 class="font-jakarta text-[20px] font-bold text-[#191c1d] mb-4">Categorías</h2>
+        <div class="space-y-3">
+          {['Frutas y Verduras', 'Lácteos', 'Bebidas', 'Snacks', 'Panadería', 'Limpieza'].map((cat) => (
+            <div class="bg-white rounded-2xl p-4 shadow-card flex items-center justify-between border border-[#c1c8c2]/20">
+              <span class="text-[15px] font-semibold text-[#191c1d]">{cat}</span>
+              <div class="flex items-center gap-2">
+                <button class="p-2 rounded-xl hover:bg-[#edeeef] active:scale-90 transition-all" title={`Editar categoría ${cat}`}>
+                  <span class="material-symbols-outlined text-[18px] text-[#414844]">edit</span>
+                </button>
+                <button class="p-2 rounded-xl hover:bg-[#ffdad6] active:scale-90 transition-all" title={`Eliminar categoría ${cat}`}>
+                  <span class="material-symbols-outlined text-[18px] text-[#ba1a1a]">delete</span>
+                </button>
+              </div>
+            </div>
+          ))}
+          <button class="w-full h-12 border-2 border-dashed border-[#c1c8c2] rounded-2xl flex items-center justify-center gap-2 text-[#717973] text-[14px] font-semibold hover:border-[#012d1d] hover:text-[#012d1d] transition-all active:scale-[0.98]" title="Agregar nueva categoría">
+            <span class="material-symbols-outlined text-[20px]">add</span>
+            Nueva Categoría
+          </button>
         </div>
-        <div class="bg-white rounded-2xl p-4 shadow-card border border-[#c1c8c2]/20 flex flex-col gap-1">
-          <label for="store-whatsapp-input" class="text-[12px] text-[#717973] uppercase font-semibold">Número de WhatsApp (con código de país, ej. 573001234567)</label>
-          <input id="store-whatsapp-input" type="text" required class="w-full h-11 px-4 rounded-xl border border-[#c1c8c2] focus:border-[#012d1d] focus:ring-2 focus:ring-[#012d1d]/20 outline-none text-[15px] font-semibold text-[#191c1d]" />
+      </div>
+
+      <!-- STORE CONFIG TAB -->
+      <div id="tab-store" class="tab-panel hidden fade-up px-4 pt-4">
+        <h2 class="font-jakarta text-[20px] font-bold text-[#191c1d] mb-4">Configuración de la Tienda</h2>
+        <div class="bg-[#c1ecd4] rounded-2xl p-6 text-center border border-[#a5d0b9] mb-4">
+          <span class="material-symbols-outlined text-[48px] text-[#012d1d]">store</span>
+          <p class="font-jakarta text-[18px] font-bold text-[#012d1d] mt-2">Tu tienda está activa</p>
+          <p class="text-[13px] text-[#1b4332] mt-1">Los cambios se aplican de inmediato en la vista del cliente</p>
         </div>
-        <div class="bg-white rounded-2xl p-4 shadow-card border border-[#c1c8c2]/20 flex flex-col gap-1">
-          <label for="store-schedule-input" class="text-[12px] text-[#717973] uppercase font-semibold">Horario de atención</label>
-          <input id="store-schedule-input" type="text" required class="w-full h-11 px-4 rounded-xl border border-[#c1c8c2] focus:border-[#012d1d] focus:ring-2 focus:ring-[#012d1d]/20 outline-none text-[15px] font-semibold text-[#191c1d]" />
+        <form id="store-config-form" class="space-y-4" novalidate>
+          <div class="bg-white rounded-2xl p-4 shadow-card border border-[#c1c8c2]/20 flex flex-col gap-1">
+            <label for="store-name-input" class="text-[12px] text-[#717973] uppercase font-semibold">Nombre de la tienda</label>
+            <input id="store-name-input" type="text" required class="w-full h-11 px-4 rounded-xl border border-[#c1c8c2] focus:border-[#012d1d] focus:ring-2 focus:ring-[#012d1d]/20 outline-none text-[15px] font-semibold text-[#191c1d]" />
+          </div>
+          <div class="bg-white rounded-2xl p-4 shadow-card border border-[#c1c8c2]/20 flex flex-col gap-1">
+            <label for="store-whatsapp-input" class="text-[12px] text-[#717973] uppercase font-semibold">Número de WhatsApp (con código de país, ej. 573001234567)</label>
+            <input id="store-whatsapp-input" type="text" required class="w-full h-11 px-4 rounded-xl border border-[#c1c8c2] focus:border-[#012d1d] focus:ring-2 focus:ring-[#012d1d]/20 outline-none text-[15px] font-semibold text-[#191c1d]" />
+          </div>
+          <div class="bg-white rounded-2xl p-4 shadow-card border border-[#c1c8c2]/20 flex flex-col gap-1">
+            <label for="store-schedule-input" class="text-[12px] text-[#717973] uppercase font-semibold">Horario de atención</label>
+            <input id="store-schedule-input" type="text" required class="w-full h-11 px-4 rounded-xl border border-[#c1c8c2] focus:border-[#012d1d] focus:ring-2 focus:ring-[#012d1d]/20 outline-none text-[15px] font-semibold text-[#191c1d]" />
+          </div>
+          <button
+            type="submit"
+            class="flex items-center justify-center gap-2 w-full h-12 bg-[#012d1d] text-white rounded-2xl font-semibold text-[14px] active:scale-[0.98] transition-all shadow-card hover:brightness-105"
+          >
+            <span class="material-symbols-outlined text-[20px]">save</span>
+            Guardar Configuración
+          </button>
+        </form>
+        <div class="mt-4">
+          <a
+            href="/"
+            class="flex items-center justify-center gap-2 w-full h-12 border-2 border-[#012d1d] text-[#012d1d] rounded-2xl font-semibold text-[14px] active:scale-[0.98] transition-all"
+            title="Ver mi tienda como cliente"
+          >
+            <span class="material-symbols-outlined text-[20px]">open_in_new</span>
+            Ver mi Tienda (Vista Cliente)
+          </a>
         </div>
+      </div>
+    </main>
+
+    <!-- ═══════════════ FLOATING ACTION BUTTON ═══════════════ -->
+    <button
+      id="fab-add"
+      class="fixed bottom-24 right-4 w-14 h-14 bg-[#fd8603] text-[#5f2f00] rounded-full shadow-orange flex items-center justify-center active:scale-90 hover:scale-110 transition-all z-40 group"
+      aria-label="Agregar nuevo producto"
+      title="Agregar nuevo producto"
+    >
+      <span class="material-symbols-outlined text-[28px] group-hover:rotate-90 transition-transform duration-300">add</span>
+    </button>
+
+    <!-- ═══════════════ BOTTOM NAVIGATION ═══════════════ -->
+    <nav
+      class="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[480px] z-50 bg-[#012d1d] border-t border-[#1b4332] rounded-t-2xl"
+      aria-label="Navegación del panel admin"
+    >
+      <div class="flex justify-around items-center h-16 px-2">
+        <!-- Productos -->
         <button
-          type="submit"
-          class="flex items-center justify-center gap-2 w-full h-12 bg-[#012d1d] text-white rounded-2xl font-semibold text-[14px] active:scale-[0.98] transition-all shadow-card hover:brightness-105"
+          class="admin-nav-item active flex flex-col items-center gap-0.5 px-3 py-1.5 rounded-2xl transition-all duration-200 active:scale-90 text-[#86af99] bg-[#1b4332]"
+          data-tab="tab-products"
+          title="Gestión de productos"
         >
-          <span class="material-symbols-outlined text-[20px]">save</span>
-          Guardar Configuración
+          <span class="material-symbols-outlined text-[22px]" style="font-variation-settings:'FILL' 1">inventory_2</span>
+          <span class="text-[10px] font-semibold">Productos</span>
         </button>
-      </form>
-      <div class="mt-4">
-        <a
-          href="/"
-          class="flex items-center justify-center gap-2 w-full h-12 border-2 border-[#012d1d] text-[#012d1d] rounded-2xl font-semibold text-[14px] active:scale-[0.98] transition-all"
-          title="Ver mi tienda como cliente"
+
+        <!-- Categorías -->
+        <button
+          class="admin-nav-item flex flex-col items-center gap-0.5 px-3 py-1.5 rounded-2xl text-[#86af99] transition-all duration-200 active:scale-90"
+          data-tab="tab-categories"
+          title="Gestión de categorías"
         >
-          <span class="material-symbols-outlined text-[20px]">open_in_new</span>
-          Ver mi Tienda (Vista Cliente)
-        </a>
+          <span class="material-symbols-outlined text-[22px]">category</span>
+          <span class="text-[10px] font-semibold">Categorías</span>
+        </button>
+
+        <!-- Mi Tienda -->
+        <button
+          class="admin-nav-item flex flex-col items-center gap-0.5 px-3 py-1.5 rounded-2xl text-[#86af99] transition-all duration-200 active:scale-90"
+          data-tab="tab-store"
+          title="Ver configuración de tienda"
+        >
+          <span class="material-symbols-outlined text-[22px]">storefront</span>
+          <span class="text-[10px] font-semibold">Mi Tienda</span>
+        </button>
+
+        <!-- Cerrar Sesión -->
+        <button
+          id="admin-logout-btn"
+          class="flex flex-col items-center gap-0.5 px-3 py-1.5 rounded-2xl text-[#ffdad6] hover:text-red-300 transition-all duration-200 active:scale-90"
+          title="Cerrar sesión de administrador"
+        >
+          <span class="material-symbols-outlined text-[22px] text-red-400">logout</span>
+          <span class="text-[10px] font-semibold">Salir</span>
+        </button>
       </div>
-    </div>
-  </main>
+    </nav>
 
-  <!-- ═══════════════ FLOATING ACTION BUTTON ═══════════════ -->
-  <button
-    id="fab-add"
-    class="fixed bottom-24 right-4 w-14 h-14 bg-[#fd8603] text-[#5f2f00] rounded-full shadow-orange flex items-center justify-center active:scale-90 hover:scale-110 transition-all z-40 group"
-    aria-label="Agregar nuevo producto"
-    title="Agregar nuevo producto"
-  >
-    <span class="material-symbols-outlined text-[28px] group-hover:rotate-90 transition-transform duration-300">add</span>
-  </button>
-
-  <!-- ═══════════════ BOTTOM NAVIGATION ═══════════════ -->
-  <nav
-    class="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[480px] z-50 bg-[#012d1d] border-t border-[#1b4332] rounded-t-2xl"
-    aria-label="Navegación del panel admin"
-  >
-    <div class="flex justify-around items-center h-16 px-2">
-      <!-- Productos -->
-      <button
-        class="admin-nav-item active flex flex-col items-center gap-0.5 px-5 py-1.5 rounded-2xl transition-all duration-200 active:scale-90 text-[#86af99] bg-[#1b4332]"
-        data-tab="tab-products"
-        title="Gestión de productos"
-      >
-        <span class="material-symbols-outlined text-[22px]" style="font-variation-settings:'FILL' 1">inventory_2</span>
-        <span class="text-[10px] font-semibold">Productos</span>
-      </button>
-
-      <!-- Categorías -->
-      <button
-        class="admin-nav-item flex flex-col items-center gap-0.5 px-5 py-1.5 rounded-2xl text-[#86af99] transition-all duration-200 active:scale-90"
-        data-tab="tab-categories"
-        title="Gestión de categorías"
-      >
-        <span class="material-symbols-outlined text-[22px]">category</span>
-        <span class="text-[10px] font-semibold">Categorías</span>
-      </button>
-
-      <!-- Mi Tienda -->
-      <button
-        class="admin-nav-item flex flex-col items-center gap-0.5 px-5 py-1.5 rounded-2xl text-[#86af99] transition-all duration-200 active:scale-90"
-        data-tab="tab-store"
-        title="Ver configuración de tienda"
-      >
-        <span class="material-symbols-outlined text-[22px]">storefront</span>
-        <span class="text-[10px] font-semibold">Mi Tienda</span>
-      </button>
-    </div>
-  </nav>
 
   <!-- ═══════════════ ADD / EDIT MODAL ═══════════════ -->
   <div id="edit-modal" class="hidden fixed inset-0 z-[60] flex items-end">
@@ -298,6 +311,7 @@ import Layout from '../layouts/Layout.astro';
       </div>
     </div>
   </div>
+</div>
 </Layout>
 
 <script>
@@ -815,6 +829,7 @@ import Layout from '../layouts/Layout.astro';
   navItems.forEach((btn) => {
     btn.addEventListener('click', () => {
       const targetId = btn.dataset.tab!;
+      if (targetId === 'tab-logout') return; // Handled separately
 
       navItems.forEach((n) => {
         n.classList.remove('active', 'bg-[#1b4332]');
@@ -879,6 +894,98 @@ import Layout from '../layouts/Layout.astro';
     }
   });
 
-  // ── Init on load ──────────────────────────────
-  loadAndRender();
+  // ── Init on load / Security Barrier ───────────
+  const ADMIN_PASSWORD = "TiendaSegura2026";
+  const authenticated = sessionStorage.getItem('admin_autenticado') === 'true';
+
+  if (authenticated) {
+    const dashboardContainer = document.getElementById('admin-dashboard-container')!;
+    dashboardContainer.classList.remove('hidden');
+    dashboardContainer.classList.add('flex');
+    loadAndRender();
+  } else {
+    // Clear page HTML wrapper to prevent dashboard DOM inspection/bypass
+    const wrapper = document.body.firstElementChild as HTMLElement;
+    if (wrapper) {
+      wrapper.innerHTML = '';
+      wrapper.className = 'w-full max-w-[480px] mx-auto min-h-dvh flex flex-col items-center justify-center bg-[#012d1d] px-6 text-white relative overflow-x-hidden';
+      
+      const loginWrapper = document.createElement('div');
+      loginWrapper.className = 'w-full max-w-[360px] bg-[#1b4332] rounded-3xl p-6 border border-[#a5d0b9]/30 shadow-[0_12px_40px_rgba(0,0,0,0.4)] text-center fade-up flex flex-col gap-6';
+      loginWrapper.innerHTML = `
+        <div class="flex flex-col items-center gap-2">
+          <span class="material-symbols-outlined text-[#fd8603] text-[48px]">lock</span>
+          <h2 class="font-jakarta text-[22px] font-bold">Acceso Dueño</h2>
+          <p class="text-[12px] text-[#86af99]">Ingresa la contraseña para gestionar la tienda</p>
+        </div>
+        
+        <form id="login-form" class="space-y-4">
+          <div class="flex flex-col gap-1 text-left">
+            <label for="login-password" class="text-[12px] font-semibold text-[#86af99]">Contraseña</label>
+            <div class="relative">
+              <input
+                id="login-password"
+                type="password"
+                placeholder="••••••••"
+                required
+                class="w-full h-12 pl-4 pr-10 rounded-xl bg-white text-[#191c1d] border border-[#c1c8c2] focus:border-[#012d1d] focus:ring-2 focus:ring-[#012d1d]/20 outline-none text-[15px] transition-all"
+              />
+              <button
+                type="button"
+                id="toggle-password-visibility"
+                class="absolute inset-y-0 right-0 flex items-center pr-3 text-[#717973] hover:text-[#012d1d] transition-colors"
+                title="Mostrar contraseña"
+              >
+                <span class="material-symbols-outlined text-[20px]">visibility</span>
+              </button>
+            </div>
+            <p id="login-error" class="text-[11px] text-[#ba1a1a] font-bold bg-red-100 border border-red-200 rounded px-2.5 py-1 hidden mt-2">Contraseña incorrecta</p>
+          </div>
+
+          <button
+            type="submit"
+            class="w-full h-12 bg-[#fd8603] text-[#5f2f00] font-bold text-[15px] rounded-xl active:scale-[0.98] transition-all shadow-orange hover:brightness-105"
+          >
+            Ingresar
+          </button>
+        </form>
+      `;
+      wrapper.appendChild(loginWrapper);
+
+      const form = document.getElementById('login-form') as HTMLFormElement;
+      const pwdInput = document.getElementById('login-password') as HTMLInputElement;
+      const errorEl = document.getElementById('login-error')!;
+      const toggleBtn = document.getElementById('toggle-password-visibility')!;
+
+      toggleBtn.addEventListener('click', () => {
+        const isPwd = pwdInput.type === 'password';
+        pwdInput.type = isPwd ? 'text' : 'password';
+        toggleBtn.innerHTML = `<span class="material-symbols-outlined text-[20px]">${isPwd ? 'visibility_off' : 'visibility'}</span>`;
+      });
+
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        if (pwdInput.value === ADMIN_PASSWORD) {
+          sessionStorage.setItem('admin_autenticado', 'true');
+          window.location.reload();
+        } else {
+          errorEl.classList.remove('hidden');
+          pwdInput.classList.add('border-[#ba1a1a]', 'focus:ring-[#ba1a1a]/20');
+          pwdInput.value = '';
+          pwdInput.focus();
+        }
+      });
+    }
+  }
+
+  // Logout listener
+  const logoutBtn = document.getElementById('admin-logout-btn');
+  if (logoutBtn) {
+    logoutBtn.addEventListener('click', () => {
+      if (confirm('¿Estás seguro de que deseas cerrar sesión en el panel de administración?')) {
+        sessionStorage.removeItem('admin_autenticado');
+        window.location.reload();
+      }
+    });
+  }
 </script>
