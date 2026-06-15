@@ -1,0 +1,148 @@
+---
+// CheckoutForm.astro — Delivery and payment form for cart page
+// No props needed; JS handles all state
+---
+
+<form id="checkout-form" class="space-y-5" novalidate>
+  <!-- ── Delivery Data ───────────────────────────── -->
+  <div>
+    <h3 class="text-[20px] font-bold text-[#191c1d] font-jakarta mb-4">Datos de Entrega</h3>
+    <div class="space-y-4">
+
+      <!-- Name -->
+      <div class="flex flex-col gap-1">
+        <label for="recipient-name" class="text-[13px] font-semibold text-[#414844]">
+          Nombre de quien recibe <span class="text-[#ba1a1a]">*</span>
+        </label>
+        <input
+          id="recipient-name"
+          name="recipientName"
+          type="text"
+          placeholder="Ej. María López"
+          autocomplete="name"
+          required
+          class="w-full h-12 px-4 rounded-xl bg-white border border-[#c1c8c2] focus:border-[#012d1d] focus:ring-2 focus:ring-[#012d1d]/20 outline-none transition-all text-[15px] placeholder:text-[#c1c8c2]"
+        />
+        <p class="field-error text-[11px] text-[#ba1a1a] hidden mt-0.5">Este campo es obligatorio</p>
+      </div>
+
+      <!-- Address -->
+      <div class="flex flex-col gap-1">
+        <label for="address" class="text-[13px] font-semibold text-[#414844]">
+          Dirección o nombre del conjunto / edificio <span class="text-[#ba1a1a]">*</span>
+        </label>
+        <input
+          id="address"
+          name="address"
+          type="text"
+          placeholder="Ej. Calle 10 # 4-50 o Conjunto Los Olivos"
+          autocomplete="street-address"
+          required
+          class="w-full h-12 px-4 rounded-xl bg-white border border-[#c1c8c2] focus:border-[#012d1d] focus:ring-2 focus:ring-[#012d1d]/20 outline-none transition-all text-[15px] placeholder:text-[#c1c8c2]"
+        />
+        <p class="field-error text-[11px] text-[#ba1a1a] hidden mt-0.5">Este campo es obligatorio</p>
+      </div>
+
+      <!-- Apt / Tower -->
+      <div class="flex flex-col gap-1">
+        <label for="apt-number" class="text-[13px] font-semibold text-[#414844]">
+          Torre / Bloque / Número de Apto
+        </label>
+        <input
+          id="apt-number"
+          name="aptNumber"
+          type="text"
+          placeholder="Ej. Torre 4A, Apto 02"
+          class="w-full h-12 px-4 rounded-xl bg-white border border-[#c1c8c2] focus:border-[#012d1d] focus:ring-2 focus:ring-[#012d1d]/20 outline-none transition-all text-[15px] placeholder:text-[#c1c8c2]"
+        />
+      </div>
+    </div>
+  </div>
+
+  <!-- Divider -->
+  <div class="h-px bg-[#c1c8c2]"></div>
+
+  <!-- ── Payment Method ───────────────────────────── -->
+  <div>
+    <h3 class="text-[20px] font-bold text-[#191c1d] font-jakarta mb-4">Método de Pago</h3>
+    <div class="grid grid-cols-2 gap-3">
+      <!-- Cash -->
+      <button
+        type="button"
+        id="pay-cash"
+        class="payment-btn active-payment flex flex-col items-center justify-center gap-2 py-5 rounded-2xl bg-white border-2 border-transparent shadow-card active:scale-95 transition-all"
+        title="Pagar en efectivo"
+      >
+        <span class="material-symbols-outlined text-[32px] text-[#012d1d]">payments</span>
+        <span class="text-[13px] font-semibold text-[#191c1d]">Efectivo</span>
+      </button>
+
+      <!-- Transfer -->
+      <button
+        type="button"
+        id="pay-transfer"
+        class="payment-btn flex flex-col items-center justify-center gap-2 py-5 rounded-2xl bg-white border-2 border-transparent shadow-card active:scale-95 transition-all"
+        title="Pagar por transferencia"
+      >
+        <span class="material-symbols-outlined text-[32px] text-[#012d1d]">account_balance</span>
+        <span class="text-[13px] font-semibold text-[#191c1d]">Transferencia</span>
+      </button>
+    </div>
+
+    <!-- Cash: change amount field -->
+    <div id="cash-extra" class="mt-3 flex flex-col gap-1 transition-all">
+      <label for="change-amount" class="text-[13px] font-semibold text-[#414844]">
+        ¿Con cuánto vas a pagar? (para llevar el cambio)
+      </label>
+      <input
+        id="change-amount"
+        name="changeAmount"
+        type="number"
+        min="0"
+        placeholder="Ej. 50000"
+        class="w-full h-12 px-4 rounded-xl bg-white border border-[#c1c8c2] focus:border-[#012d1d] focus:ring-2 focus:ring-[#012d1d]/20 outline-none transition-all text-[15px] placeholder:text-[#c1c8c2]"
+      />
+    </div>
+
+    <!-- Transfer: account info -->
+    <div id="transfer-info" class="hidden mt-3 bg-[#c1ecd4] rounded-xl p-4 border border-[#a5d0b9]">
+      <div class="flex items-start gap-3">
+        <span class="material-symbols-outlined text-[#012d1d] mt-0.5 flex-shrink-0">info</span>
+        <div>
+          <p class="text-[13px] font-bold text-[#012d1d] mb-1">Datos para transferencia</p>
+          <p class="text-[13px] text-[#1b4332]">Nequi / Daviplata del negocio:</p>
+          <p class="text-[16px] font-bold text-[#012d1d] tracking-wide">300-XXX-XXXX</p>
+          <p class="text-[11px] text-[#414844] mt-1">Envíanos el comprobante por WhatsApp junto al pedido.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+<script>
+  const cashBtn      = document.getElementById('pay-cash')!;
+  const transferBtn  = document.getElementById('pay-transfer')!;
+  const cashExtra    = document.getElementById('cash-extra')!;
+  const transferInfo = document.getElementById('transfer-info')!;
+  const allPayBtns   = document.querySelectorAll<HTMLButtonElement>('.payment-btn');
+
+  function setPayment(method: 'cash' | 'transfer') {
+    allPayBtns.forEach((b) => b.classList.remove('active-payment'));
+    if (method === 'cash') {
+      cashBtn.classList.add('active-payment');
+      cashExtra.classList.remove('hidden');
+      transferInfo.classList.add('hidden');
+    } else {
+      transferBtn.classList.add('active-payment');
+      cashExtra.classList.add('hidden');
+      transferInfo.classList.remove('hidden');
+    }
+    (document.getElementById('checkout-form') as HTMLFormElement)?.setAttribute('data-payment', method);
+  }
+
+  cashBtn.addEventListener('click', () => setPayment('cash'));
+  transferBtn.addEventListener('click', () => setPayment('transfer'));
+
+  // Default: cash selected
+  setPayment('cash');
+</script>

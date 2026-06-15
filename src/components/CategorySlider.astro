@@ -1,0 +1,55 @@
+---
+// CategorySlider.astro — Horizontal pill/tag filter carousel
+export interface Props {
+  categories: Array<{ id: string; label: string; icon: string }>;
+}
+
+const { categories } = Astro.props;
+---
+
+<section class="category-slider-section" aria-label="Filtrar por categoría">
+  <div
+    id="category-slider"
+    class="flex gap-3 overflow-x-auto no-scrollbar px-[16px] py-1 snap-x snap-mandatory"
+    role="listbox"
+    aria-label="Categorías de productos"
+  >
+    {categories.map((cat, i) => (
+      <button
+        class={`category-chip flex-shrink-0 flex items-center gap-2 px-4 py-2 rounded-full text-[13px] font-semibold transition-all duration-200 active:scale-95 snap-start ${
+          i === 0
+            ? 'bg-[#1b4332] text-[#86af99]'
+            : 'bg-[#e7e8e9] text-[#414844] hover:bg-[#d9dadb]'
+        }`}
+        data-category={cat.id}
+        role="option"
+        aria-selected={i === 0 ? 'true' : 'false'}
+        title={`Filtrar por ${cat.label}`}
+      >
+        <span class="material-symbols-outlined text-[18px]">{cat.icon}</span>
+        {cat.label}
+      </button>
+    ))}
+  </div>
+</section>
+
+<script>
+  const chips = document.querySelectorAll<HTMLButtonElement>('.category-chip');
+
+  chips.forEach((chip) => {
+    chip.addEventListener('click', () => {
+      // Update active state
+      chips.forEach((c) => {
+        c.classList.remove('bg-[#1b4332]', 'text-[#86af99]');
+        c.classList.add('bg-[#e7e8e9]', 'text-[#414844]');
+        c.setAttribute('aria-selected', 'false');
+      });
+      chip.classList.remove('bg-[#e7e8e9]', 'text-[#414844]');
+      chip.classList.add('bg-[#1b4332]', 'text-[#86af99]');
+      chip.setAttribute('aria-selected', 'true');
+
+      const selectedCat = chip.dataset.category!;
+      dispatchEvent(new CustomEvent('category-filter', { detail: selectedCat }));
+    });
+  });
+</script>

@@ -1,0 +1,94 @@
+---
+// PromoCard.astro — Horizontal card for the promotions carousel
+export interface Props {
+  id: string;
+  name: string;
+  price: number;
+  originalPrice: number;
+  image: string;
+  imageAlt: string;
+  discountLabel: string;
+}
+
+const { id, name, price, originalPrice, image, imageAlt, discountLabel } = Astro.props;
+
+const fmtPrice = (n: number) =>
+  new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP', minimumFractionDigits: 0 }).format(n);
+---
+
+<article
+  class="promo-card flex-shrink-0 w-56 bg-[#ffffff] rounded-2xl shadow-card border border-[#c1c8c2]/30 overflow-hidden snap-start"
+  data-product-id={id}
+  data-product-name={name}
+  data-product-price={price}
+  data-product-image={image}
+>
+  <!-- Image Area -->
+  <div class="relative h-36 bg-[#f3f4f5] overflow-hidden">
+    <img
+      src={image}
+      alt={imageAlt}
+      title={name}
+      loading="lazy"
+      class="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+    />
+    <div class="absolute top-2 left-2 bg-[#fd8603] text-[#5f2f00] text-[10px] font-bold px-2 py-0.5 rounded-full shadow">
+      {discountLabel}
+    </div>
+  </div>
+
+  <!-- Content -->
+  <div class="p-3">
+    <h3 class="text-[13px] font-semibold text-[#191c1d] leading-tight truncate">{name}</h3>
+    <div class="flex items-center gap-2 mt-1">
+      <span class="text-[#012d1d] font-bold text-[16px]">{fmtPrice(price)}</span>
+      <span class="text-[#717973] text-[12px] line-through">{fmtPrice(originalPrice)}</span>
+    </div>
+    <button
+      class="promo-add-btn mt-2.5 w-full py-2 bg-[#fd8603] text-[#5f2f00] text-[13px] font-bold rounded-xl active:scale-95 transition-all flex items-center justify-center gap-1.5 shadow-orange"
+      aria-label={`Agregar ${name} al carrito`}
+      title={`Agregar ${name} al carrito`}
+    >
+      <span class="material-symbols-outlined text-[16px]">add_shopping_cart</span>
+      Agregar
+    </button>
+  </div>
+</article>
+
+<script>
+  document.querySelectorAll<HTMLElement>('.promo-card').forEach((card) => {
+    const id    = card.dataset.productId!;
+    const name  = card.dataset.productName!;
+    const price = Number(card.dataset.productPrice);
+    const image = card.dataset.productImage!;
+    const btn   = card.querySelector<HTMLButtonElement>('.promo-add-btn')!;
+
+    btn.addEventListener('click', () => {
+      const cart = getCart();
+      const idx  = cart.findIndex((i: CartItem) => i.id === id);
+      if (idx >= 0) {
+        cart[idx].qty += 1;
+      } else {
+        cart.push({ id, name, price, image, qty: 1 });
+      }
+      saveCart(cart);
+
+      // Visual feedback
+      btn.textContent = '¡Agregado!';
+      btn.classList.add('bg-[#012d1d]', 'text-white');
+      setTimeout(() => {
+        btn.innerHTML = '<span class="material-symbols-outlined text-[16px]">add_shopping_cart</span> Agregar';
+        btn.classList.remove('bg-[#012d1d]', 'text-white');
+      }, 1200);
+    });
+  });
+
+  interface CartItem { id: string; name: string; price: number; image: string; qty: number }
+  function getCart(): CartItem[] {
+    try { return JSON.parse(localStorage.getItem('tienda_cart') || '[]'); } catch { return []; }
+  }
+  function saveCart(cart: CartItem[]) {
+    localStorage.setItem('tienda_cart', JSON.stringify(cart));
+    dispatchEvent(new CustomEvent('cart-updated', { detail: cart }));
+  }
+</script>
