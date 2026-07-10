@@ -1,6 +1,6 @@
 ---
 // src/pages/admin.astro — Owner Admin Dashboard (Mobile-First, Secure Access & Fully Interactive)
-import Layout from '../layouts/Layout.astro';
+import Layout from "../layouts/Layout.astro";
 ---
 
 <Layout
@@ -10,11 +10,17 @@ import Layout from '../layouts/Layout.astro';
   <!-- ═══════════════ DASHBOARD CONTAINER ═══════════════ -->
   <div id="admin-dashboard-container" class="hidden flex-col min-h-dvh">
     <!-- ═══════════════ HEADER ═══════════════ -->
-    <header class="sticky top-0 z-50 bg-[#012d1d] text-white px-4 py-3 flex items-center justify-between shadow-elevated">
+    <header
+      class="sticky top-0 z-50 bg-[#012d1d] text-white px-4 py-3 flex items-center justify-between shadow-elevated"
+    >
       <div class="flex items-center gap-2.5">
-        <span class="material-symbols-outlined text-[#a5d0b9] text-[26px]">admin_panel_settings</span>
+        <span class="material-symbols-outlined text-[#a5d0b9] text-[26px]"
+          >admin_panel_settings</span
+        >
         <div>
-          <h1 class="font-jakarta text-[18px] font-bold leading-none">Panel Admin</h1>
+          <h1 class="font-jakarta text-[18px] font-bold leading-none">
+            Panel Admin
+          </h1>
           <p class="text-[11px] text-[#86af99]">Tienda de Barrio</p>
         </div>
       </div>
@@ -32,18 +38,18 @@ import Layout from '../layouts/Layout.astro';
           aria-label="Notificaciones"
           title="Notificaciones"
         >
-          <span class="material-symbols-outlined text-[22px]">notifications</span>
+          <span class="material-symbols-outlined text-[22px]"
+            >notifications</span
+          >
         </button>
       </div>
     </header>
 
     <!-- ═══════════════ MAIN ═══════════════ -->
     <main class="flex-1 pb-28 overflow-y-auto">
-
       <!-- ── Tab panels ── -->
       <!-- PRODUCTS TAB (default active) -->
       <div id="tab-products" class="tab-panel fade-up">
-
         <!-- Search (toggle visibility) -->
         <div id="admin-search-bar" class="hidden px-4 pt-3">
           <input
@@ -56,44 +62,103 @@ import Layout from '../layouts/Layout.astro';
         </div>
 
         <!-- Metric Cards -->
-        <section class="px-4 pt-4 grid grid-cols-2 gap-3" aria-label="Estadísticas del inventario">
+        <section
+          class="px-4 pt-4 grid grid-cols-2 gap-3"
+          aria-label="Estadísticas del inventario"
+        >
           <!-- Total Products -->
-          <div class="bg-white rounded-2xl p-4 shadow-card border-l-4 border-[#012d1d] col-span-2 flex justify-between items-center">
+          <div
+            class="bg-white rounded-2xl p-4 shadow-card border-l-4 border-[#012d1d] col-span-2 flex justify-between items-center"
+          >
             <div>
-              <p class="text-[11px] text-[#717973] uppercase font-semibold tracking-wide">Total de Productos</p>
-              <p id="metric-total-products" class="text-[28px] font-bold text-[#012d1d] font-jakarta leading-none mt-0.5">0</p>
-              <p class="text-[12px] text-[#414844] mt-0.5">productos en inventario</p>
+              <p
+                class="text-[11px] text-[#717973] uppercase font-semibold tracking-wide"
+              >
+                Total de Productos
+              </p>
+              <p
+                id="metric-total-products"
+                class="text-[28px] font-bold text-[#012d1d] font-jakarta leading-none mt-0.5"
+              >
+                0
+              </p>
+              <p class="text-[12px] text-[#414844] mt-0.5">
+                productos en inventario
+              </p>
             </div>
-            <span class="material-symbols-outlined text-[#012d1d] text-[40px] opacity-20">inventory_2</span>
+            <span
+              class="material-symbols-outlined text-[#012d1d] text-[40px] opacity-20"
+              >inventory_2</span
+            >
           </div>
 
           <!-- Out of Stock -->
-          <div class="bg-white rounded-2xl p-4 shadow-card border-l-4 border-[#ba1a1a]">
-            <p class="text-[11px] text-[#717973] uppercase font-semibold">Agotados</p>
-            <p id="metric-out-of-stock" class="text-[24px] font-bold text-[#ba1a1a] font-jakarta">0</p>
-            <span class="material-symbols-outlined text-[#ba1a1a] opacity-30 text-[20px]">warning</span>
+          <div
+            class="bg-white rounded-2xl p-4 shadow-card border-l-4 border-[#ba1a1a]"
+          >
+            <p class="text-[11px] text-[#717973] uppercase font-semibold">
+              Agotados
+            </p>
+            <p
+              id="metric-out-of-stock"
+              class="text-[24px] font-bold text-[#ba1a1a] font-jakarta"
+            >
+              0
+            </p>
+            <span
+              class="material-symbols-outlined text-[#ba1a1a] opacity-30 text-[20px]"
+              >warning</span
+            >
           </div>
 
           <!-- Low Stock -->
-          <div class="bg-white rounded-2xl p-4 shadow-card border-l-4 border-[#fd8603]">
-            <p class="text-[11px] text-[#717973] uppercase font-semibold">Stock bajo</p>
-            <p id="metric-low-stock" class="text-[24px] font-bold text-[#fd8603] font-jakarta">0</p>
-            <span class="material-symbols-outlined text-[#fd8603] opacity-30 text-[20px]">production_quantity_limits</span>
+          <div
+            class="bg-white rounded-2xl p-4 shadow-card border-l-4 border-[#fd8603]"
+          >
+            <p class="text-[11px] text-[#717973] uppercase font-semibold">
+              Stock bajo
+            </p>
+            <p
+              id="metric-low-stock"
+              class="text-[24px] font-bold text-[#fd8603] font-jakarta"
+            >
+              0
+            </p>
+            <span
+              class="material-symbols-outlined text-[#fd8603] opacity-30 text-[20px]"
+              >production_quantity_limits</span
+            >
           </div>
 
           <!-- Total Value -->
-          <div class="bg-white rounded-2xl p-4 shadow-card border-l-4 border-[#934b00] col-span-2 flex justify-between items-center">
+          <div
+            class="bg-white rounded-2xl p-4 shadow-card border-l-4 border-[#934b00] col-span-2 flex justify-between items-center"
+          >
             <div>
-              <p class="text-[11px] text-[#717973] uppercase font-semibold tracking-wide">Valor estimado en stock</p>
-              <p id="metric-total-value" class="text-[22px] font-bold text-[#934b00] font-jakarta">$0</p>
+              <p
+                class="text-[11px] text-[#717973] uppercase font-semibold tracking-wide"
+              >
+                Valor estimado en stock
+              </p>
+              <p
+                id="metric-total-value"
+                class="text-[22px] font-bold text-[#934b00] font-jakarta"
+              >
+                $0
+              </p>
             </div>
-            <span class="material-symbols-outlined text-[#934b00] text-[36px] opacity-20">payments</span>
+            <span
+              class="material-symbols-outlined text-[#934b00] text-[36px] opacity-20"
+              >payments</span
+            >
           </div>
         </section>
 
         <!-- Section Header + Add button -->
         <div class="flex items-center justify-between px-4 mt-6 mb-3">
-          <h2 class="font-jakarta text-[18px] font-bold text-[#191c1d]">Inventario</h2>
+          <h2 class="font-jakarta text-[18px] font-bold text-[#191c1d]">
+            Inventario
+          </h2>
           <button
             id="add-product-btn"
             class="flex items-center gap-1.5 bg-[#fd8603] text-[#5f2f00] text-[12px] font-bold px-3 py-2 rounded-full active:scale-95 transition-all shadow-orange"
@@ -105,29 +170,59 @@ import Layout from '../layouts/Layout.astro';
         </div>
 
         <!-- Product Cards List -->
-        <section id="admin-products-list" class="px-4 space-y-3" aria-label="Lista de productos">
+        <section
+          id="admin-products-list"
+          class="px-4 space-y-3"
+          aria-label="Lista de productos"
+        >
           <!-- Rendered dynamically on client -->
         </section>
       </div>
 
       <!-- CATEGORIES TAB -->
       <div id="tab-categories" class="tab-panel hidden fade-up px-4 pt-4">
-        <h2 class="font-jakarta text-[20px] font-bold text-[#191c1d] mb-4">Categorías</h2>
+        <h2 class="font-jakarta text-[20px] font-bold text-[#191c1d] mb-4">
+          Categorías
+        </h2>
         <div class="space-y-3">
-          {['Frutas y Verduras', 'Lácteos', 'Bebidas', 'Snacks', 'Panadería', 'Limpieza'].map((cat) => (
-            <div class="bg-white rounded-2xl p-4 shadow-card flex items-center justify-between border border-[#c1c8c2]/20">
-              <span class="text-[15px] font-semibold text-[#191c1d]">{cat}</span>
-              <div class="flex items-center gap-2">
-                <button class="p-2 rounded-xl hover:bg-[#edeeef] active:scale-90 transition-all" title={`Editar categoría ${cat}`}>
-                  <span class="material-symbols-outlined text-[18px] text-[#414844]">edit</span>
-                </button>
-                <button class="p-2 rounded-xl hover:bg-[#ffdad6] active:scale-90 transition-all" title={`Eliminar categoría ${cat}`}>
-                  <span class="material-symbols-outlined text-[18px] text-[#ba1a1a]">delete</span>
-                </button>
+          {
+            [
+              "Frutas y Verduras",
+              "Lácteos",
+              "Bebidas",
+              "Snacks",
+              "Panadería",
+              "Limpieza",
+            ].map((cat) => (
+              <div class="bg-white rounded-2xl p-4 shadow-card flex items-center justify-between border border-[#c1c8c2]/20">
+                <span class="text-[15px] font-semibold text-[#191c1d]">
+                  {cat}
+                </span>
+                <div class="flex items-center gap-2">
+                  <button
+                    class="p-2 rounded-xl hover:bg-[#edeeef] active:scale-90 transition-all"
+                    title={`Editar categoría ${cat}`}
+                  >
+                    <span class="material-symbols-outlined text-[18px] text-[#414844]">
+                      edit
+                    </span>
+                  </button>
+                  <button
+                    class="p-2 rounded-xl hover:bg-[#ffdad6] active:scale-90 transition-all"
+                    title={`Eliminar categoría ${cat}`}
+                  >
+                    <span class="material-symbols-outlined text-[18px] text-[#ba1a1a]">
+                      delete
+                    </span>
+                  </button>
+                </div>
               </div>
-            </div>
-          ))}
-          <button class="w-full h-12 border-2 border-dashed border-[#c1c8c2] rounded-2xl flex items-center justify-center gap-2 text-[#717973] text-[14px] font-semibold hover:border-[#012d1d] hover:text-[#012d1d] transition-all active:scale-[0.98]" title="Agregar nueva categoría">
+            ))
+          }
+          <button
+            class="w-full h-12 border-2 border-dashed border-[#c1c8c2] rounded-2xl flex items-center justify-center gap-2 text-[#717973] text-[14px] font-semibold hover:border-[#012d1d] hover:text-[#012d1d] transition-all active:scale-[0.98]"
+            title="Agregar nueva categoría"
+          >
             <span class="material-symbols-outlined text-[20px]">add</span>
             Nueva Categoría
           </button>
@@ -136,24 +231,67 @@ import Layout from '../layouts/Layout.astro';
 
       <!-- STORE CONFIG TAB -->
       <div id="tab-store" class="tab-panel hidden fade-up px-4 pt-4">
-        <h2 class="font-jakarta text-[20px] font-bold text-[#191c1d] mb-4">Configuración de la Tienda</h2>
-        <div class="bg-[#c1ecd4] rounded-2xl p-6 text-center border border-[#a5d0b9] mb-4">
-          <span class="material-symbols-outlined text-[48px] text-[#012d1d]">store</span>
-          <p class="font-jakarta text-[18px] font-bold text-[#012d1d] mt-2">Tu tienda está activa</p>
-          <p class="text-[13px] text-[#1b4332] mt-1">Los cambios se aplican de inmediato en la vista del cliente</p>
+        <h2 class="font-jakarta text-[20px] font-bold text-[#191c1d] mb-4">
+          Configuración de la Tienda
+        </h2>
+        <div
+          class="bg-[#c1ecd4] rounded-2xl p-6 text-center border border-[#a5d0b9] mb-4"
+        >
+          <span class="material-symbols-outlined text-[48px] text-[#012d1d]"
+            >store</span
+          >
+          <p class="font-jakarta text-[18px] font-bold text-[#012d1d] mt-2">
+            Tu tienda está activa
+          </p>
+          <p class="text-[13px] text-[#1b4332] mt-1">
+            Los cambios se aplican de inmediato en la vista del cliente
+          </p>
         </div>
         <form id="store-config-form" class="space-y-4" novalidate>
-          <div class="bg-white rounded-2xl p-4 shadow-card border border-[#c1c8c2]/20 flex flex-col gap-1">
-            <label for="store-name-input" class="text-[12px] text-[#717973] uppercase font-semibold">Nombre de la tienda</label>
-            <input id="store-name-input" type="text" required class="w-full h-11 px-4 rounded-xl border border-[#c1c8c2] focus:border-[#012d1d] focus:ring-2 focus:ring-[#012d1d]/20 outline-none text-[15px] font-semibold text-[#191c1d]" />
+          <div
+            class="bg-white rounded-2xl p-4 shadow-card border border-[#c1c8c2]/20 flex flex-col gap-1"
+          >
+            <label
+              for="store-name-input"
+              class="text-[12px] text-[#717973] uppercase font-semibold"
+              >Nombre de la tienda</label
+            >
+            <input
+              id="store-name-input"
+              type="text"
+              required
+              class="w-full h-11 px-4 rounded-xl border border-[#c1c8c2] focus:border-[#012d1d] focus:ring-2 focus:ring-[#012d1d]/20 outline-none text-[15px] font-semibold text-[#191c1d]"
+            />
           </div>
-          <div class="bg-white rounded-2xl p-4 shadow-card border border-[#c1c8c2]/20 flex flex-col gap-1">
-            <label for="store-whatsapp-input" class="text-[12px] text-[#717973] uppercase font-semibold">Número de WhatsApp (con código de país, ej. 573001234567)</label>
-            <input id="store-whatsapp-input" type="text" required class="w-full h-11 px-4 rounded-xl border border-[#c1c8c2] focus:border-[#012d1d] focus:ring-2 focus:ring-[#012d1d]/20 outline-none text-[15px] font-semibold text-[#191c1d]" />
+          <div
+            class="bg-white rounded-2xl p-4 shadow-card border border-[#c1c8c2]/20 flex flex-col gap-1"
+          >
+            <label
+              for="store-whatsapp-input"
+              class="text-[12px] text-[#717973] uppercase font-semibold"
+              >Número de WhatsApp (con código de país, ej. 573001234567)</label
+            >
+            <input
+              id="store-whatsapp-input"
+              type="text"
+              required
+              class="w-full h-11 px-4 rounded-xl border border-[#c1c8c2] focus:border-[#012d1d] focus:ring-2 focus:ring-[#012d1d]/20 outline-none text-[15px] font-semibold text-[#191c1d]"
+            />
           </div>
-          <div class="bg-white rounded-2xl p-4 shadow-card border border-[#c1c8c2]/20 flex flex-col gap-1">
-            <label for="store-schedule-input" class="text-[12px] text-[#717973] uppercase font-semibold">Horario de atención</label>
-            <input id="store-schedule-input" type="text" required class="w-full h-11 px-4 rounded-xl border border-[#c1c8c2] focus:border-[#012d1d] focus:ring-2 focus:ring-[#012d1d]/20 outline-none text-[15px] font-semibold text-[#191c1d]" />
+          <div
+            class="bg-white rounded-2xl p-4 shadow-card border border-[#c1c8c2]/20 flex flex-col gap-1"
+          >
+            <label
+              for="store-schedule-input"
+              class="text-[12px] text-[#717973] uppercase font-semibold"
+              >Horario de atención</label
+            >
+            <input
+              id="store-schedule-input"
+              type="text"
+              required
+              class="w-full h-11 px-4 rounded-xl border border-[#c1c8c2] focus:border-[#012d1d] focus:ring-2 focus:ring-[#012d1d]/20 outline-none text-[15px] font-semibold text-[#191c1d]"
+            />
           </div>
           <button
             type="submit"
@@ -169,7 +307,9 @@ import Layout from '../layouts/Layout.astro';
             class="flex items-center justify-center gap-2 w-full h-12 border-2 border-[#012d1d] text-[#012d1d] rounded-2xl font-semibold text-[14px] active:scale-[0.98] transition-all"
             title="Ver mi tienda como cliente"
           >
-            <span class="material-symbols-outlined text-[20px]">open_in_new</span>
+            <span class="material-symbols-outlined text-[20px]"
+              >open_in_new</span
+            >
             Ver mi Tienda (Vista Cliente)
           </a>
         </div>
@@ -183,7 +323,10 @@ import Layout from '../layouts/Layout.astro';
       aria-label="Agregar nuevo producto"
       title="Agregar nuevo producto"
     >
-      <span class="material-symbols-outlined text-[28px] group-hover:rotate-90 transition-transform duration-300">add</span>
+      <span
+        class="material-symbols-outlined text-[28px] group-hover:rotate-90 transition-transform duration-300"
+        >add</span
+      >
     </button>
 
     <!-- ═══════════════ BOTTOM NAVIGATION ═══════════════ -->
@@ -198,7 +341,10 @@ import Layout from '../layouts/Layout.astro';
           data-tab="tab-products"
           title="Gestión de productos"
         >
-          <span class="material-symbols-outlined text-[22px]" style="font-variation-settings:'FILL' 1">inventory_2</span>
+          <span
+            class="material-symbols-outlined text-[22px]"
+            style="font-variation-settings:'FILL' 1">inventory_2</span
+          >
           <span class="text-[10px] font-semibold">Productos</span>
         </button>
 
@@ -228,90 +374,188 @@ import Layout from '../layouts/Layout.astro';
           class="flex flex-col items-center gap-0.5 px-3 py-1.5 rounded-2xl text-[#ffdad6] hover:text-red-300 transition-all duration-200 active:scale-90"
           title="Cerrar sesión de administrador"
         >
-          <span class="material-symbols-outlined text-[22px] text-red-400">logout</span>
+          <span class="material-symbols-outlined text-[22px] text-red-400"
+            >logout</span
+          >
           <span class="text-[10px] font-semibold">Salir</span>
         </button>
       </div>
     </nav>
 
-
-  <!-- ═══════════════ ADD / EDIT MODAL ═══════════════ -->
-  <div id="edit-modal" class="hidden fixed inset-0 z-[60] flex items-end">
-    <div class="absolute inset-0 bg-black/50" id="modal-overlay"></div>
-    <div class="relative w-full max-w-[480px] mx-auto bg-white rounded-t-3xl p-6 shadow-elevated z-10 max-h-[85vh] overflow-y-auto">
-      <div class="flex items-center justify-between mb-4">
-        <h3 id="modal-title" class="font-jakarta text-[18px] font-bold text-[#191c1d]">Editar Producto</h3>
-        <button id="close-modal" class="p-1.5 rounded-full hover:bg-[#edeeef] active:scale-90 transition-all" aria-label="Cerrar" title="Cerrar">
-          <span class="material-symbols-outlined text-[22px] text-[#414844]">close</span>
-        </button>
-      </div>
-      <div class="space-y-4">
-        <div class="flex flex-col gap-1">
-          <label for="edit-name" class="text-[12px] font-semibold text-[#414844]">Nombre del producto</label>
-          <input id="edit-name" type="text" class="w-full h-11 px-4 rounded-xl border border-[#c1c8c2] focus:border-[#012d1d] focus:ring-2 focus:ring-[#012d1d]/20 outline-none text-[14px]" />
+    <!-- ═══════════════ ADD / EDIT MODAL ═══════════════ -->
+    <div id="edit-modal" class="hidden fixed inset-0 z-[60] flex items-end">
+      <div class="absolute inset-0 bg-black/50" id="modal-overlay"></div>
+      <div
+        class="relative w-full max-w-[480px] mx-auto bg-white rounded-t-3xl p-6 shadow-elevated z-10 max-h-[85vh] overflow-y-auto"
+      >
+        <div class="flex items-center justify-between mb-4">
+          <h3
+            id="modal-title"
+            class="font-jakarta text-[18px] font-bold text-[#191c1d]"
+          >
+            Editar Producto
+          </h3>
+          <button
+            id="close-modal"
+            class="p-1.5 rounded-full hover:bg-[#edeeef] active:scale-90 transition-all"
+            aria-label="Cerrar"
+            title="Cerrar"
+          >
+            <span class="material-symbols-outlined text-[22px] text-[#414844]"
+              >close</span
+            >
+          </button>
         </div>
-        <div class="grid grid-cols-2 gap-3">
+        <div class="space-y-4">
           <div class="flex flex-col gap-1">
-            <label for="edit-price" class="text-[12px] font-semibold text-[#414844]">Precio (COP)</label>
-            <input id="edit-price" type="number" class="w-full h-11 px-4 rounded-xl border border-[#c1c8c2] focus:border-[#012d1d] focus:ring-2 focus:ring-[#012d1d]/20 outline-none text-[14px]" />
+            <label
+              for="edit-name"
+              class="text-[12px] font-semibold text-[#414844]"
+              >Nombre del producto</label
+            >
+            <input
+              id="edit-name"
+              type="text"
+              class="w-full h-11 px-4 rounded-xl border border-[#c1c8c2] focus:border-[#012d1d] focus:ring-2 focus:ring-[#012d1d]/20 outline-none text-[14px]"
+            />
           </div>
-          <div class="flex flex-col gap-1">
-            <label for="edit-stock" class="text-[12px] font-semibold text-[#414844]">Stock</label>
-            <input id="edit-stock" type="number" min="0" class="w-full h-11 px-4 rounded-xl border border-[#c1c8c2] focus:border-[#012d1d] focus:ring-2 focus:ring-[#012d1d]/20 outline-none text-[14px]" />
-          </div>
-        </div>
-        <div class="flex flex-col gap-1">
-          <label for="edit-category" class="text-[12px] font-semibold text-[#414844]">Categoría</label>
-          <select id="edit-category" class="w-full h-11 px-4 rounded-xl border border-[#c1c8c2] focus:border-[#012d1d] outline-none text-[14px] bg-white">
-            <option value="lacteos">Lácteos</option>
-            <option value="bebidas">Bebidas</option>
-            <option value="snacks">Snacks</option>
-            <option value="frutas">Frutas</option>
-            <option value="limpieza">Limpieza</option>
-            <option value="panaderia">Panadería</option>
-          </select>
-        </div>
-        <div class="flex flex-col gap-1">
-          <label class="text-[12px] font-semibold text-[#414844]">Imagen del producto</label>
-          <div class="flex items-center gap-3 bg-[#f3f4f5] p-2.5 rounded-xl border border-[#c1c8c2]/50">
-            <!-- Preview Thumbnail -->
-            <div class="w-14 h-14 rounded-lg border border-[#c1c8c2] bg-white overflow-hidden flex items-center justify-center flex-shrink-0">
-              <img id="edit-image-preview" src="" class="w-full h-full object-cover hidden" alt="Vista previa" title="Vista previa" />
-              <span id="edit-image-placeholder" class="material-symbols-outlined text-[#717973] text-[22px]">image</span>
+          <div class="grid grid-cols-2 gap-3">
+            <div class="flex flex-col gap-1">
+              <label
+                for="edit-price"
+                class="text-[12px] font-semibold text-[#414844]"
+                >Precio (COP)</label
+              >
+              <input
+                id="edit-price"
+                type="number"
+                class="w-full h-11 px-4 rounded-xl border border-[#c1c8c2] focus:border-[#012d1d] focus:ring-2 focus:ring-[#012d1d]/20 outline-none text-[14px]"
+              />
             </div>
-            <!-- File input styled as button -->
-            <label class="flex-1 h-10 border border-[#c1c8c2] rounded-lg bg-white flex items-center justify-center gap-1.5 text-[#414844] text-[12px] font-bold cursor-pointer hover:bg-[#edeeef] active:scale-[0.98] transition-all" title="Seleccionar imagen">
-              <span class="material-symbols-outlined text-[18px]">upload</span>
-              <span>Subir Imagen</span>
-              <input id="edit-image-file" type="file" accept="image/*" class="sr-only" />
-            </label>
-          </div>
-        </div>
-        <div class="flex items-center gap-2 pt-1">
-          <input type="checkbox" id="edit-is-promo" class="w-4 h-4 text-[#012d1d] border-[#c1c8c2] rounded focus:ring-[#012d1d]" />
-          <label for="edit-is-promo" class="text-[12px] font-semibold text-[#414844]">Es una Oferta / Promoción</label>
-        </div>
-        <div id="promo-fields" class="hidden grid grid-cols-2 gap-3 transition-all pt-1">
-          <div class="flex flex-col gap-1">
-            <label for="edit-original-price" class="text-[12px] font-semibold text-[#414844]">Precio Original (COP)</label>
-            <input id="edit-original-price" type="number" class="w-full h-11 px-4 rounded-xl border border-[#c1c8c2] focus:border-[#012d1d] focus:ring-2 focus:ring-[#012d1d]/20 outline-none text-[14px]" />
+            <div class="flex flex-col gap-1">
+              <label
+                for="edit-stock"
+                class="text-[12px] font-semibold text-[#414844]">Stock</label
+              >
+              <input
+                id="edit-stock"
+                type="number"
+                min="0"
+                class="w-full h-11 px-4 rounded-xl border border-[#c1c8c2] focus:border-[#012d1d] focus:ring-2 focus:ring-[#012d1d]/20 outline-none text-[14px]"
+              />
+            </div>
           </div>
           <div class="flex flex-col gap-1">
-            <label for="edit-discount-label" class="text-[12px] font-semibold text-[#414844]">Etiqueta Descuento</label>
-            <input id="edit-discount-label" type="text" placeholder="Ej. -25%" class="w-full h-11 px-4 rounded-xl border border-[#c1c8c2] focus:border-[#012d1d] focus:ring-2 focus:ring-[#012d1d]/20 outline-none text-[14px]" />
+            <label
+              for="edit-category"
+              class="text-[12px] font-semibold text-[#414844]">Categoría</label
+            >
+            <select
+              id="edit-category"
+              class="w-full h-11 px-4 rounded-xl border border-[#c1c8c2] focus:border-[#012d1d] outline-none text-[14px] bg-white"
+            >
+              <option value="lacteos">Lácteos</option>
+              <option value="bebidas">Bebidas</option>
+              <option value="snacks">Snacks</option>
+              <option value="frutas">Frutas</option>
+              <option value="limpieza">Limpieza</option>
+              <option value="panaderia">Panadería</option>
+            </select>
           </div>
+          <div class="flex flex-col gap-1">
+            <label class="text-[12px] font-semibold text-[#414844]"
+              >Imagen del producto</label
+            >
+            <div
+              class="flex items-center gap-3 bg-[#f3f4f5] p-2.5 rounded-xl border border-[#c1c8c2]/50"
+            >
+              <!-- Preview Thumbnail -->
+              <div
+                class="w-14 h-14 rounded-lg border border-[#c1c8c2] bg-white overflow-hidden flex items-center justify-center flex-shrink-0"
+              >
+                <img
+                  id="edit-image-preview"
+                  src=""
+                  class="w-full h-full object-cover hidden"
+                  alt="Vista previa"
+                  title="Vista previa"
+                />
+                <span
+                  id="edit-image-placeholder"
+                  class="material-symbols-outlined text-[#717973] text-[22px]"
+                  >image</span
+                >
+              </div>
+              <!-- File input styled as button -->
+              <label
+                class="flex-1 h-10 border border-[#c1c8c2] rounded-lg bg-white flex items-center justify-center gap-1.5 text-[#414844] text-[12px] font-bold cursor-pointer hover:bg-[#edeeef] active:scale-[0.98] transition-all"
+                title="Seleccionar imagen"
+              >
+                <span class="material-symbols-outlined text-[18px]">upload</span
+                >
+                <span>Subir Imagen</span>
+                <input
+                  id="edit-image-file"
+                  type="file"
+                  accept="image/*"
+                  class="sr-only"
+                />
+              </label>
+            </div>
+          </div>
+          <div class="flex items-center gap-2 pt-1">
+            <input
+              type="checkbox"
+              id="edit-is-promo"
+              class="w-4 h-4 text-[#012d1d] border-[#c1c8c2] rounded focus:ring-[#012d1d]"
+            />
+            <label
+              for="edit-is-promo"
+              class="text-[12px] font-semibold text-[#414844]"
+              >Es una Oferta / Promoción</label
+            >
+          </div>
+          <div
+            id="promo-fields"
+            class="hidden grid grid-cols-2 gap-3 transition-all pt-1"
+          >
+            <div class="flex flex-col gap-1">
+              <label
+                for="edit-original-price"
+                class="text-[12px] font-semibold text-[#414844]"
+                >Precio Original (COP)</label
+              >
+              <input
+                id="edit-original-price"
+                type="number"
+                class="w-full h-11 px-4 rounded-xl border border-[#c1c8c2] focus:border-[#012d1d] focus:ring-2 focus:ring-[#012d1d]/20 outline-none text-[14px]"
+              />
+            </div>
+            <div class="flex flex-col gap-1">
+              <label
+                for="edit-discount-label"
+                class="text-[12px] font-semibold text-[#414844]"
+                >Etiqueta Descuento</label
+              >
+              <input
+                id="edit-discount-label"
+                type="text"
+                placeholder="Ej. -25%"
+                class="w-full h-11 px-4 rounded-xl border border-[#c1c8c2] focus:border-[#012d1d] focus:ring-2 focus:ring-[#012d1d]/20 outline-none text-[14px]"
+              />
+            </div>
+          </div>
+          <button
+            id="save-edit-btn"
+            class="w-full h-12 bg-[#012d1d] text-white font-bold text-[15px] rounded-2xl active:scale-[0.98] transition-all shadow-card"
+            title="Guardar cambios del producto"
+          >
+            Guardar Cambios
+          </button>
         </div>
-        <button
-          id="save-edit-btn"
-          class="w-full h-12 bg-[#012d1d] text-white font-bold text-[15px] rounded-2xl active:scale-[0.98] transition-all shadow-card"
-          title="Guardar cambios del producto"
-        >
-          Guardar Cambios
-        </button>
       </div>
     </div>
   </div>
-</div>
 </Layout>
 
 <script>
@@ -340,83 +584,126 @@ import Layout from '../layouts/Layout.astro';
 
   // ── Database accessors ─────────────────────────
   function getProducts(): Product[] {
-    const data = localStorage.getItem('tienda_productos');
+    const data = localStorage.getItem("tienda_productos");
     return data ? JSON.parse(data) : [];
   }
 
   function saveProducts(products: Product[]) {
-    localStorage.setItem('tienda_productos', JSON.stringify(products));
-    dispatchEvent(new CustomEvent('storage', { detail: { key: 'tienda_productos' } }));
+    localStorage.setItem("tienda_productos", JSON.stringify(products));
+    dispatchEvent(
+      new CustomEvent("storage", { detail: { key: "tienda_productos" } }),
+    );
   }
 
   function getStoreConfig(): StoreConfig {
-    const data = localStorage.getItem('tienda_config');
-    return data ? JSON.parse(data) : { name: 'Tienda de Barrio', whatsapp: '573001234567', schedule: 'Lun – Sáb · 7:00am – 8:00pm' };
+    const data = localStorage.getItem("tienda_config");
+    return data
+      ? JSON.parse(data)
+      : {
+          name: "Tienda de Barrio",
+          whatsapp: "573001234567",
+          schedule: "Lun – Sáb · 7:00am – 8:00pm",
+        };
   }
 
   function saveStoreConfig(config: StoreConfig) {
-    localStorage.setItem('tienda_config', JSON.stringify(config));
-    dispatchEvent(new CustomEvent('storage', { detail: { key: 'tienda_config' } }));
+    localStorage.setItem("tienda_config", JSON.stringify(config));
+    dispatchEvent(
+      new CustomEvent("storage", { detail: { key: "tienda_config" } }),
+    );
   }
 
   function fmtCOP(n: number) {
-    return new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP', minimumFractionDigits: 0 }).format(n);
+    return new Intl.NumberFormat("es-CO", {
+      style: "currency",
+      currency: "COP",
+      minimumFractionDigits: 0,
+    }).format(n);
   }
 
   // ── DOM refs ──────────────────────────────────
-  const productsListEl = document.getElementById('admin-products-list')!;
-  const navItems       = document.querySelectorAll<HTMLButtonElement>('.admin-nav-item');
-  const tabPanels      = document.querySelectorAll<HTMLElement>('.tab-panel');
-  const searchInput    = document.getElementById('admin-search-input') as HTMLInputElement;
-  const searchBar      = document.getElementById('admin-search-bar')!;
-  const searchBtn      = document.getElementById('admin-search-btn')!;
+  const productsListEl = document.getElementById("admin-products-list")!;
+  const navItems =
+    document.querySelectorAll<HTMLButtonElement>(".admin-nav-item");
+  const tabPanels = document.querySelectorAll<HTMLElement>(".tab-panel");
+  const searchInput = document.getElementById(
+    "admin-search-input",
+  ) as HTMLInputElement;
+  const searchBar = document.getElementById("admin-search-bar")!;
+  const searchBtn = document.getElementById("admin-search-btn")!;
 
   // Store config DOM
-  const storeForm      = document.getElementById('store-config-form') as HTMLFormElement;
-  const nameInput      = document.getElementById('store-name-input') as HTMLInputElement;
-  const whatsappInput  = document.getElementById('store-whatsapp-input') as HTMLInputElement;
-  const scheduleInput  = document.getElementById('store-schedule-input') as HTMLInputElement;
+  const storeForm = document.getElementById(
+    "store-config-form",
+  ) as HTMLFormElement;
+  const nameInput = document.getElementById(
+    "store-name-input",
+  ) as HTMLInputElement;
+  const whatsappInput = document.getElementById(
+    "store-whatsapp-input",
+  ) as HTMLInputElement;
+  const scheduleInput = document.getElementById(
+    "store-schedule-input",
+  ) as HTMLInputElement;
 
   // Modal DOM
-  const editModal      = document.getElementById('edit-modal')!;
-  const modalOverlay   = document.getElementById('modal-overlay')!;
-  const closeModal     = document.getElementById('close-modal')!;
-  const modalTitle     = document.getElementById('modal-title')!;
-  const saveBtn        = document.getElementById('save-edit-btn')!;
-  const inputName      = document.getElementById('edit-name') as HTMLInputElement;
-  const inputPrice     = document.getElementById('edit-price') as HTMLInputElement;
-  const inputStock     = document.getElementById('edit-stock') as HTMLInputElement;
-  const inputCategory  = document.getElementById('edit-category') as HTMLSelectElement;
-  const inputIsPromo   = document.getElementById('edit-is-promo') as HTMLInputElement;
-  const promoFields    = document.getElementById('promo-fields')!;
-  const inputOriginalPrice = document.getElementById('edit-original-price') as HTMLInputElement;
-  const inputDiscountLabel = document.getElementById('edit-discount-label') as HTMLInputElement;
-  const inputImageFile      = document.getElementById('edit-image-file') as HTMLInputElement;
-  const imagePreview        = document.getElementById('edit-image-preview') as HTMLImageElement;
-  const imagePlaceholder    = document.getElementById('edit-image-placeholder')!;
+  const editModal = document.getElementById("edit-modal")!;
+  const modalOverlay = document.getElementById("modal-overlay")!;
+  const closeModal = document.getElementById("close-modal")!;
+  const modalTitle = document.getElementById("modal-title")!;
+  const saveBtn = document.getElementById("save-edit-btn")!;
+  const inputName = document.getElementById("edit-name") as HTMLInputElement;
+  const inputPrice = document.getElementById("edit-price") as HTMLInputElement;
+  const inputStock = document.getElementById("edit-stock") as HTMLInputElement;
+  const inputCategory = document.getElementById(
+    "edit-category",
+  ) as HTMLSelectElement;
+  const inputIsPromo = document.getElementById(
+    "edit-is-promo",
+  ) as HTMLInputElement;
+  const promoFields = document.getElementById("promo-fields")!;
+  const inputOriginalPrice = document.getElementById(
+    "edit-original-price",
+  ) as HTMLInputElement;
+  const inputDiscountLabel = document.getElementById(
+    "edit-discount-label",
+  ) as HTMLInputElement;
+  const inputImageFile = document.getElementById(
+    "edit-image-file",
+  ) as HTMLInputElement;
+  const imagePreview = document.getElementById(
+    "edit-image-preview",
+  ) as HTMLImageElement;
+  const imagePlaceholder = document.getElementById("edit-image-placeholder")!;
   let uploadedImageBase64: string | null = null;
 
   // Add Product Triggers
-  const addBtnHeader   = document.getElementById('add-product-btn')!;
-  const addBtnFab      = document.getElementById('fab-add')!;
+  const addBtnHeader = document.getElementById("add-product-btn")!;
+  const addBtnFab = document.getElementById("fab-add")!;
 
   let isEditMode = false;
   let activeProductId: string | null = null;
 
   // Category to default images mapping
   const CATEGORY_IMAGES: Record<string, string> = {
-    lacteos: 'https://images.unsplash.com/photo-1550583724-b2692b85b150?w=400&q=80',
-    bebidas: 'https://images.unsplash.com/photo-1621506289937-a8e4df240d0b?w=400&q=80',
-    snacks: 'https://images.unsplash.com/photo-1566478989037-eec170784d0b?w=400&q=80',
-    frutas: 'https://images.unsplash.com/photo-1546094096-0df4bcaaa337?w=400&q=80',
-    limpieza: 'https://images.unsplash.com/photo-1563453392212-326f5e854473?w=400&q=80',
-    panaderia: 'https://images.unsplash.com/photo-1509440159596-0249088772ff?w=400&q=80',
+    lacteos:
+      "https://images.unsplash.com/photo-1550583724-b2692b85b150?w=400&q=80",
+    bebidas:
+      "https://images.unsplash.com/photo-1621506289937-a8e4df240d0b?w=400&q=80",
+    snacks:
+      "https://images.unsplash.com/photo-1566478989037-eec170784d0b?w=400&q=80",
+    frutas:
+      "https://images.unsplash.com/photo-1546094096-0df4bcaaa337?w=400&q=80",
+    limpieza:
+      "https://images.unsplash.com/photo-1563453392212-326f5e854473?w=400&q=80",
+    panaderia:
+      "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=400&q=80",
   };
 
   // ── Render Page Content ────────────────────────
   function loadAndRender() {
     const products = getProducts();
-    const config   = getStoreConfig();
+    const config = getStoreConfig();
 
     // Fill settings inputs
     if (nameInput) nameInput.value = config.name;
@@ -426,7 +713,7 @@ import Layout from '../layouts/Layout.astro';
     // Filter products list based on search
     const query = searchInput.value.toLowerCase().trim();
     const filtered = query
-      ? products.filter(p => p.name.toLowerCase().includes(query))
+      ? products.filter((p) => p.name.toLowerCase().includes(query))
       : products;
 
     // Render list
@@ -449,17 +736,18 @@ import Layout from '../layouts/Layout.astro';
       return;
     }
 
-    productsListEl.innerHTML = list.map(product => {
-      const isAgotado = product.stock === 0;
-      const isLowStock = product.stock > 0 && product.stock <= 3;
-      const opacityClass = product.visible ? 'opacity-100' : 'opacity-50';
-      const borderClass = isAgotado
-        ? 'border-[#ba1a1a]/30'
-        : isLowStock
-        ? 'border-[#fd8603]/40'
-        : 'border-[#c1c8c2]/20';
+    productsListEl.innerHTML = list
+      .map((product) => {
+        const isAgotado = product.stock === 0;
+        const isLowStock = product.stock > 0 && product.stock <= 3;
+        const opacityClass = product.visible ? "opacity-100" : "opacity-50";
+        const borderClass = isAgotado
+          ? "border-[#ba1a1a]/30"
+          : isLowStock
+            ? "border-[#fd8603]/40"
+            : "border-[#c1c8c2]/20";
 
-      return `
+        return `
         <article
           class="admin-product-card bg-white rounded-2xl shadow-card flex items-center gap-3 p-3 border transition-all ${opacityClass} ${borderClass}"
           data-product-id="${product.id}"
@@ -471,18 +759,26 @@ import Layout from '../layouts/Layout.astro';
               alt="${product.imageAlt || product.name}"
               title="${product.name}"
               loading="lazy"
-              class="w-16 h-16 rounded-xl object-cover ${isAgotado ? 'grayscale opacity-60' : ''}"
+              class="w-16 h-16 rounded-xl object-cover ${isAgotado ? "grayscale opacity-60" : ""}"
             />
-            ${isAgotado ? `
+            ${
+              isAgotado
+                ? `
               <div class="absolute inset-0 bg-[#ba1a1a]/20 rounded-xl flex items-center justify-center">
                 <span class="text-[9px] font-bold text-white bg-[#ba1a1a] px-1 rounded">Agotado</span>
               </div>
-            ` : ''}
-            ${isLowStock ? `
+            `
+                : ""
+            }
+            ${
+              isLowStock
+                ? `
               <div class="absolute -top-1 -right-1 bg-[#fd8603] text-[#5f2f00] text-[9px] font-bold px-1.5 py-0.5 rounded-full shadow-sm">
                 ¡${product.stock}!
               </div>
-            ` : ''}
+            `
+                : ""
+            }
           </div>
 
           <!-- Info -->
@@ -490,17 +786,17 @@ import Layout from '../layouts/Layout.astro';
             <h3 class="text-[13px] font-semibold text-[#191c1d] leading-tight truncate">${product.name}</h3>
             <p class="text-[16px] font-bold text-[#012d1d] font-jakarta">
               ${fmtCOP(product.price)}
-              ${product.isPromo ? `<span class="text-[10px] bg-[#fd8603]/20 text-[#934b00] font-bold px-1.5 py-0.5 rounded ml-1">Promo</span>` : ''}
+              ${product.isPromo ? `<span class="text-[10px] bg-[#fd8603]/20 text-[#934b00] font-bold px-1.5 py-0.5 rounded ml-1">Promo</span>` : ""}
             </p>
             <div class="flex items-center gap-2 mt-0.5">
               <span class="text-[10px] font-semibold px-2 py-0.5 rounded-full ${
                 isAgotado
-                  ? 'bg-[#ffdad6] text-[#93000a]'
+                  ? "bg-[#ffdad6] text-[#93000a]"
                   : isLowStock
-                  ? 'bg-[#ffdcc4] text-[#703800]'
-                  : 'bg-[#c1ecd4] text-[#002114]'
+                    ? "bg-[#ffdcc4] text-[#703800]"
+                    : "bg-[#c1ecd4] text-[#002114]"
               }">
-                ${isAgotado ? 'Sin stock' : `Stock: ${product.stock}`}
+                ${isAgotado ? "Sin stock" : `Stock: ${product.stock}`}
               </span>
               <span class="text-[10px] text-[#717973] uppercase font-bold tracking-wider">${product.category}</span>
             </div>
@@ -509,15 +805,15 @@ import Layout from '../layouts/Layout.astro';
           <!-- Controls -->
           <div class="flex flex-col items-center gap-2 flex-shrink-0">
             <!-- Visibility Toggle -->
-            <label class="relative inline-flex items-center cursor-pointer" title="${product.visible ? 'Visible en tienda' : 'Oculto en tienda'}">
+            <label class="relative inline-flex items-center cursor-pointer" title="${product.visible ? "Visible en tienda" : "Oculto en tienda"}">
               <input
                 type="checkbox"
                 class="sr-only toggle-input"
-                ${product.visible ? 'checked' : ''}
+                ${product.visible ? "checked" : ""}
                 aria-label="Visibilidad de ${product.name}"
               />
-              <div class="toggle-track w-11 h-6 rounded-full relative transition-all duration-200 ${product.visible ? 'bg-[#1b4332]' : 'bg-[#e1e3e4]'}">
-                <div class="toggle-thumb absolute top-[2px] left-[2px] w-5 h-5 bg-white rounded-full shadow transition-transform duration-200" style="transform: ${product.visible ? 'translateX(20px)' : 'translateX(0)'}"></div>
+              <div class="toggle-track w-11 h-6 rounded-full relative transition-all duration-200 ${product.visible ? "bg-[#1b4332]" : "bg-[#e1e3e4]"}">
+                <div class="toggle-thumb absolute top-[2px] left-[2px] w-5 h-5 bg-white rounded-full shadow transition-transform duration-200" style="transform: ${product.visible ? "translateX(20px)" : "translateX(0)"}"></div>
               </div>
             </label>
 
@@ -532,19 +828,20 @@ import Layout from '../layouts/Layout.astro';
           </div>
         </article>
       `;
-    }).join('');
+      })
+      .join("");
   }
 
   function updateMetrics(products: Product[]) {
     const totalCount = products.length;
-    const outCount   = products.filter(p => p.stock === 0).length;
-    const lowCount   = products.filter(p => p.stock > 0 && p.stock <= 3).length;
-    const totalVal   = products.reduce((s, p) => s + (p.price * p.stock), 0);
+    const outCount = products.filter((p) => p.stock === 0).length;
+    const lowCount = products.filter((p) => p.stock > 0 && p.stock <= 3).length;
+    const totalVal = products.reduce((s, p) => s + p.price * p.stock, 0);
 
-    const totalEl = document.getElementById('metric-total-products');
-    const outEl   = document.getElementById('metric-out-of-stock');
-    const lowEl   = document.getElementById('metric-low-stock');
-    const valEl   = document.getElementById('metric-total-value');
+    const totalEl = document.getElementById("metric-total-products");
+    const outEl = document.getElementById("metric-out-of-stock");
+    const lowEl = document.getElementById("metric-low-stock");
+    const valEl = document.getElementById("metric-total-value");
 
     if (totalEl) totalEl.textContent = String(totalCount);
     if (outEl) outEl.textContent = String(outCount);
@@ -554,49 +851,49 @@ import Layout from '../layouts/Layout.astro';
 
   // ── Event Delegation for Inventory Controls ──
   if (productsListEl) {
-    productsListEl.addEventListener('click', (e) => {
+    productsListEl.addEventListener("click", (e) => {
       const target = e.target as HTMLElement;
 
       // 1. Check if edit button was clicked
-      const editBtn = target.closest('.edit-btn');
+      const editBtn = target.closest(".edit-btn");
       if (editBtn) {
-        const card = editBtn.closest('.admin-product-card') as HTMLElement;
+        const card = editBtn.closest(".admin-product-card") as HTMLElement;
         const id = card.dataset.productId!;
         openEditModal(id);
         return;
       }
 
       // 2. Check if toggle visibility input was clicked/changed
-      const toggleInput = target.closest('.toggle-input') as HTMLInputElement;
+      const toggleInput = target.closest(".toggle-input") as HTMLInputElement;
       if (toggleInput) {
-        const card = toggleInput.closest('.admin-product-card') as HTMLElement;
+        const card = toggleInput.closest(".admin-product-card") as HTMLElement;
         const id = card.dataset.productId!;
         const products = getProducts();
-        const product = products.find(p => p.id === id);
+        const product = products.find((p) => p.id === id);
         if (product) {
           product.visible = toggleInput.checked;
           saveProducts(products);
 
           // Update card visual opacity instantly
           if (product.visible) {
-            card.classList.remove('opacity-50');
-            card.classList.add('opacity-100');
+            card.classList.remove("opacity-50");
+            card.classList.add("opacity-100");
           } else {
-            card.classList.remove('opacity-100');
-            card.classList.add('opacity-50');
+            card.classList.remove("opacity-100");
+            card.classList.add("opacity-50");
           }
 
           // Update toggle track and thumb style
-          const track = card.querySelector('.toggle-track') as HTMLElement;
-          const thumb = card.querySelector('.toggle-thumb') as HTMLElement;
+          const track = card.querySelector(".toggle-track") as HTMLElement;
+          const thumb = card.querySelector(".toggle-thumb") as HTMLElement;
           if (product.visible) {
-            track.classList.remove('bg-[#e1e3e4]');
-            track.classList.add('bg-[#1b4332]');
-            thumb.style.transform = 'translateX(20px)';
+            track.classList.remove("bg-[#e1e3e4]");
+            track.classList.add("bg-[#1b4332]");
+            thumb.style.transform = "translateX(20px)";
           } else {
-            track.classList.remove('bg-[#1b4332]');
-            track.classList.add('bg-[#e1e3e4]');
-            thumb.style.transform = 'translateX(0)';
+            track.classList.remove("bg-[#1b4332]");
+            track.classList.add("bg-[#e1e3e4]");
+            thumb.style.transform = "translateX(0)";
           }
         }
       }
@@ -611,10 +908,10 @@ import Layout from '../layouts/Layout.astro';
       // Edit mode
       isEditMode = true;
       activeProductId = productId;
-      modalTitle.textContent = 'Editar Producto';
+      modalTitle.textContent = "Editar Producto";
 
       const products = getProducts();
-      const product = products.find(p => p.id === productId);
+      const product = products.find((p) => p.id === productId);
       if (product) {
         inputName.value = product.name;
         inputPrice.value = String(product.price);
@@ -626,72 +923,74 @@ import Layout from '../layouts/Layout.astro';
         uploadedImageBase64 = product.image;
         if (product.image) {
           imagePreview.src = product.image;
-          imagePreview.classList.remove('hidden');
-          imagePlaceholder.classList.add('hidden');
+          imagePreview.classList.remove("hidden");
+          imagePlaceholder.classList.add("hidden");
         } else {
-          imagePreview.classList.add('hidden');
-          imagePlaceholder.classList.remove('hidden');
+          imagePreview.classList.add("hidden");
+          imagePlaceholder.classList.remove("hidden");
         }
 
         if (product.isPromo) {
-          promoFields.classList.remove('hidden');
-          inputOriginalPrice.value = String(product.originalPrice || product.price);
-          inputDiscountLabel.value = product.discountLabel || '';
+          promoFields.classList.remove("hidden");
+          inputOriginalPrice.value = String(
+            product.originalPrice || product.price,
+          );
+          inputDiscountLabel.value = product.discountLabel || "";
         } else {
-          promoFields.classList.add('hidden');
-          inputOriginalPrice.value = '';
-          inputDiscountLabel.value = '';
+          promoFields.classList.add("hidden");
+          inputOriginalPrice.value = "";
+          inputDiscountLabel.value = "";
         }
       }
     } else {
       // Create mode
       isEditMode = false;
       activeProductId = null;
-      modalTitle.textContent = 'Nuevo Producto';
+      modalTitle.textContent = "Nuevo Producto";
 
-      inputName.value = '';
-      inputPrice.value = '';
-      inputStock.value = '10';
-      inputCategory.value = 'lacteos';
+      inputName.value = "";
+      inputPrice.value = "";
+      inputStock.value = "10";
+      inputCategory.value = "lacteos";
       isPromoCheckbox.checked = false;
-      promoFields.classList.add('hidden');
-      inputOriginalPrice.value = '';
-      inputDiscountLabel.value = '';
+      promoFields.classList.add("hidden");
+      inputOriginalPrice.value = "";
+      inputDiscountLabel.value = "";
 
       // Reset image state
       uploadedImageBase64 = null;
-      inputImageFile.value = '';
-      imagePreview.src = '';
-      imagePreview.classList.add('hidden');
-      imagePlaceholder.classList.remove('hidden');
+      inputImageFile.value = "";
+      imagePreview.src = "";
+      imagePreview.classList.add("hidden");
+      imagePlaceholder.classList.remove("hidden");
     }
 
-    editModal.classList.remove('hidden');
-    document.body.style.overflow = 'hidden';
+    editModal.classList.remove("hidden");
+    document.body.style.overflow = "hidden";
   }
 
   function closeEditModal() {
-    editModal.classList.add('hidden');
-    document.body.style.overflow = '';
+    editModal.classList.add("hidden");
+    document.body.style.overflow = "";
     activeProductId = null;
   }
 
-  closeModal.addEventListener('click', closeEditModal);
-  modalOverlay.addEventListener('click', closeEditModal);
+  closeModal.addEventListener("click", closeEditModal);
+  modalOverlay.addEventListener("click", closeEditModal);
 
   // Toggle promo extra fields
-  inputIsPromo.addEventListener('change', () => {
+  inputIsPromo.addEventListener("change", () => {
     if (inputIsPromo.checked) {
-      promoFields.classList.remove('hidden');
-      inputOriginalPrice.value = inputPrice.value || '';
-      inputDiscountLabel.value = '-20%';
+      promoFields.classList.remove("hidden");
+      inputOriginalPrice.value = inputPrice.value || "";
+      inputDiscountLabel.value = "-20%";
     } else {
-      promoFields.classList.add('hidden');
+      promoFields.classList.add("hidden");
     }
   });
 
   // Image Upload and Compression
-  inputImageFile.addEventListener('change', (e) => {
+  inputImageFile.addEventListener("change", (e) => {
     const file = (e.target as HTMLInputElement).files?.[0];
     if (!file) return;
 
@@ -699,7 +998,7 @@ import Layout from '../layouts/Layout.astro';
     reader.onload = (event) => {
       const img = new Image();
       img.onload = () => {
-        const canvas = document.createElement('canvas');
+        const canvas = document.createElement("canvas");
         const MAX_WIDTH = 300;
         const MAX_HEIGHT = 300;
         let width = img.width;
@@ -719,16 +1018,16 @@ import Layout from '../layouts/Layout.astro';
 
         canvas.width = width;
         canvas.height = height;
-        const ctx = canvas.getContext('2d')!;
+        const ctx = canvas.getContext("2d")!;
         ctx.drawImage(img, 0, 0, width, height);
 
         // Compress to low-res JPEG
-        uploadedImageBase64 = canvas.toDataURL('image/jpeg', 0.75);
+        uploadedImageBase64 = canvas.toDataURL("image/jpeg", 0.75);
 
         // Update preview
         imagePreview.src = uploadedImageBase64;
-        imagePreview.classList.remove('hidden');
-        imagePlaceholder.classList.add('hidden');
+        imagePreview.classList.remove("hidden");
+        imagePlaceholder.classList.add("hidden");
       };
       img.src = event.target?.result as string;
     };
@@ -736,7 +1035,7 @@ import Layout from '../layouts/Layout.astro';
   });
 
   // Save Add/Edit
-  saveBtn.addEventListener('click', () => {
+  saveBtn.addEventListener("click", () => {
     const name = inputName.value.trim();
     const price = Number(inputPrice.value);
     const stock = Number(inputStock.value);
@@ -744,17 +1043,17 @@ import Layout from '../layouts/Layout.astro';
     const isPromo = inputIsPromo.checked;
 
     if (!name) {
-      alert('Por favor ingresa un nombre para el producto.');
+      alert("Por favor ingresa un nombre para el producto.");
       inputName.focus();
       return;
     }
     if (isNaN(price) || price <= 0) {
-      alert('Por favor ingresa un precio válido.');
+      alert("Por favor ingresa un precio válido.");
       inputPrice.focus();
       return;
     }
     if (isNaN(stock) || stock < 0) {
-      alert('Por favor ingresa un stock válido.');
+      alert("Por favor ingresa un stock válido.");
       inputStock.focus();
       return;
     }
@@ -763,7 +1062,7 @@ import Layout from '../layouts/Layout.astro';
 
     if (isEditMode && activeProductId) {
       // Edit product
-      const product = products.find(p => p.id === activeProductId);
+      const product = products.find((p) => p.id === activeProductId);
       if (product) {
         product.name = name;
         product.price = price;
@@ -773,7 +1072,7 @@ import Layout from '../layouts/Layout.astro';
 
         if (isPromo) {
           product.originalPrice = Number(inputOriginalPrice.value) || price;
-          product.discountLabel = inputDiscountLabel.value.trim() || '-10%';
+          product.discountLabel = inputDiscountLabel.value.trim() || "-10%";
         } else {
           delete product.originalPrice;
           delete product.discountLabel;
@@ -787,9 +1086,12 @@ import Layout from '../layouts/Layout.astro';
     } else {
       // Add new product
       // Fallback to uploaded image, otherwise choose category default
-      const imgToUse = uploadedImageBase64 || CATEGORY_IMAGES[category] || CATEGORY_IMAGES.lacteos;
+      const imgToUse =
+        uploadedImageBase64 ||
+        CATEGORY_IMAGES[category] ||
+        CATEGORY_IMAGES.lacteos;
       const newProduct: Product = {
-        id: 'prod-' + crypto.randomUUID().substring(0, 8),
+        id: "prod-" + crypto.randomUUID().substring(0, 8),
         name,
         price,
         category,
@@ -802,7 +1104,7 @@ import Layout from '../layouts/Layout.astro';
 
       if (isPromo) {
         newProduct.originalPrice = Number(inputOriginalPrice.value) || price;
-        newProduct.discountLabel = inputDiscountLabel.value.trim() || '-10%';
+        newProduct.discountLabel = inputDiscountLabel.value.trim() || "-10%";
       }
 
       products.push(newProduct);
@@ -811,107 +1113,114 @@ import Layout from '../layouts/Layout.astro';
     saveProducts(products);
 
     // Visual feedback
-    saveBtn.textContent = '¡Guardado!';
-    saveBtn.classList.add('bg-green-700');
+    saveBtn.textContent = "¡Guardado!";
+    saveBtn.classList.add("bg-green-700");
     setTimeout(() => {
-      saveBtn.textContent = 'Guardar Cambios';
-      saveBtn.classList.remove('bg-green-700');
+      saveBtn.textContent = "Guardar Cambios";
+      saveBtn.classList.remove("bg-green-700");
       closeEditModal();
       loadAndRender();
     }, 1000);
   });
 
   // Trigger add modal
-  addBtnHeader.addEventListener('click', () => openEditModal());
-  addBtnFab.addEventListener('click', () => openEditModal());
+  addBtnHeader.addEventListener("click", () => openEditModal());
+  addBtnFab.addEventListener("click", () => openEditModal());
 
   // ── Tab Navigation ─────────────────────────────
   navItems.forEach((btn) => {
-    btn.addEventListener('click', () => {
+    btn.addEventListener("click", () => {
       const targetId = btn.dataset.tab!;
-      if (targetId === 'tab-logout') return; // Handled separately
+      if (targetId === "tab-logout") return; // Handled separately
 
       navItems.forEach((n) => {
-        n.classList.remove('active', 'bg-[#1b4332]');
-        n.classList.add('text-[#86af99]');
+        n.classList.remove("active", "bg-[#1b4332]");
+        n.classList.add("text-[#86af99]");
       });
-      btn.classList.add('active', 'bg-[#1b4332]');
+      btn.classList.add("active", "bg-[#1b4332]");
 
       tabPanels.forEach((p) => {
-        p.classList.add('hidden');
-        p.classList.remove('fade-up');
+        p.classList.add("hidden");
+        p.classList.remove("fade-up");
       });
 
       const target = document.getElementById(targetId)!;
-      target.classList.remove('hidden');
+      target.classList.remove("hidden");
       void target.offsetWidth; // Force reflow
-      target.classList.add('fade-up');
+      target.classList.add("fade-up");
     });
   });
 
   // ── Search in inventory ────────────────────────
-  searchBtn.addEventListener('click', () => {
-    searchBar.classList.toggle('hidden');
-    if (!searchBar.classList.contains('hidden')) {
+  searchBtn.addEventListener("click", () => {
+    searchBar.classList.toggle("hidden");
+    if (!searchBar.classList.contains("hidden")) {
       searchInput.focus();
     }
   });
 
-  searchInput.addEventListener('input', loadAndRender);
+  searchInput.addEventListener("input", loadAndRender);
 
   // ── Store Config Form Save ─────────────────────
-  storeForm.addEventListener('submit', (e) => {
+  storeForm.addEventListener("submit", (e) => {
     e.preventDefault();
     const name = nameInput.value.trim();
     const whatsapp = whatsappInput.value.trim();
     const schedule = scheduleInput.value.trim();
 
     if (!name || !whatsapp || !schedule) {
-      alert('Por favor completa todos los campos.');
+      alert("Por favor completa todos los campos.");
       return;
     }
 
     saveStoreConfig({ name, whatsapp, schedule });
 
     // Visual button feedback
-    const submitBtn = storeForm.querySelector('button[type="submit"]') as HTMLButtonElement;
+    const submitBtn = storeForm.querySelector(
+      'button[type="submit"]',
+    ) as HTMLButtonElement;
     const originalText = submitBtn.innerHTML;
-    submitBtn.innerHTML = '<span class="material-symbols-outlined">done</span> ¡Configuración Guardada!';
-    submitBtn.classList.remove('bg-[#012d1d]');
-    submitBtn.classList.add('bg-green-700');
+    submitBtn.innerHTML =
+      '<span class="material-symbols-outlined">done</span> ¡Configuración Guardada!';
+    submitBtn.classList.remove("bg-[#012d1d]");
+    submitBtn.classList.add("bg-green-700");
 
     setTimeout(() => {
       submitBtn.innerHTML = originalText;
-      submitBtn.classList.remove('bg-green-700');
-      submitBtn.classList.add('bg-[#012d1d]');
+      submitBtn.classList.remove("bg-green-700");
+      submitBtn.classList.add("bg-[#012d1d]");
     }, 1500);
   });
 
   // ── Reactive storage sync ─────────────────────
-  window.addEventListener('storage', (e) => {
-    if (e.key === 'tienda_productos' || e.key === 'tienda_config') {
+  window.addEventListener("storage", (e) => {
+    if (e.key === "tienda_productos" || e.key === "tienda_config") {
       loadAndRender();
     }
   });
 
   // ── Init on load / Security Barrier ───────────
-  const ADMIN_PASSWORD = "TiendaSegura2026";
-  const authenticated = sessionStorage.getItem('admin_autenticado') === 'true';
+  const ADMIN_PASSWORD = "Admin123";
+  const authenticated = sessionStorage.getItem("admin_autenticado") === "true";
 
   if (authenticated) {
-    const dashboardContainer = document.getElementById('admin-dashboard-container')!;
-    dashboardContainer.classList.remove('hidden');
-    dashboardContainer.classList.add('flex');
+    const dashboardContainer = document.getElementById(
+      "admin-dashboard-container",
+    )!;
+    dashboardContainer.classList.remove("hidden");
+    dashboardContainer.classList.add("flex");
     loadAndRender();
   } else {
     // Clear page HTML wrapper to prevent dashboard DOM inspection/bypass
     const wrapper = document.body.firstElementChild as HTMLElement;
     if (wrapper) {
-      wrapper.innerHTML = '';
-      wrapper.className = 'w-full max-w-[480px] mx-auto min-h-dvh flex flex-col items-center justify-center bg-[#012d1d] px-6 text-white relative overflow-x-hidden';
-      
-      const loginWrapper = document.createElement('div');
-      loginWrapper.className = 'w-full max-w-[360px] bg-[#1b4332] rounded-3xl p-6 border border-[#a5d0b9]/30 shadow-[0_12px_40px_rgba(0,0,0,0.4)] text-center fade-up flex flex-col gap-6';
+      wrapper.innerHTML = "";
+      wrapper.className =
+        "w-full max-w-[480px] mx-auto min-h-dvh flex flex-col items-center justify-center bg-[#012d1d] px-6 text-white relative overflow-x-hidden";
+
+      const loginWrapper = document.createElement("div");
+      loginWrapper.className =
+        "w-full max-w-[360px] bg-[#1b4332] rounded-3xl p-6 border border-[#a5d0b9]/30 shadow-[0_12px_40px_rgba(0,0,0,0.4)] text-center fade-up flex flex-col gap-6";
       loginWrapper.innerHTML = `
         <div class="flex flex-col items-center gap-2">
           <span class="material-symbols-outlined text-[#fd8603] text-[48px]">lock</span>
@@ -952,26 +1261,28 @@ import Layout from '../layouts/Layout.astro';
       `;
       wrapper.appendChild(loginWrapper);
 
-      const form = document.getElementById('login-form') as HTMLFormElement;
-      const pwdInput = document.getElementById('login-password') as HTMLInputElement;
-      const errorEl = document.getElementById('login-error')!;
-      const toggleBtn = document.getElementById('toggle-password-visibility')!;
+      const form = document.getElementById("login-form") as HTMLFormElement;
+      const pwdInput = document.getElementById(
+        "login-password",
+      ) as HTMLInputElement;
+      const errorEl = document.getElementById("login-error")!;
+      const toggleBtn = document.getElementById("toggle-password-visibility")!;
 
-      toggleBtn.addEventListener('click', () => {
-        const isPwd = pwdInput.type === 'password';
-        pwdInput.type = isPwd ? 'text' : 'password';
-        toggleBtn.innerHTML = `<span class="material-symbols-outlined text-[20px]">${isPwd ? 'visibility_off' : 'visibility'}</span>`;
+      toggleBtn.addEventListener("click", () => {
+        const isPwd = pwdInput.type === "password";
+        pwdInput.type = isPwd ? "text" : "password";
+        toggleBtn.innerHTML = `<span class="material-symbols-outlined text-[20px]">${isPwd ? "visibility_off" : "visibility"}</span>`;
       });
 
-      form.addEventListener('submit', (e) => {
+      form.addEventListener("submit", (e) => {
         e.preventDefault();
         if (pwdInput.value === ADMIN_PASSWORD) {
-          sessionStorage.setItem('admin_autenticado', 'true');
+          sessionStorage.setItem("admin_autenticado", "true");
           window.location.reload();
         } else {
-          errorEl.classList.remove('hidden');
-          pwdInput.classList.add('border-[#ba1a1a]', 'focus:ring-[#ba1a1a]/20');
-          pwdInput.value = '';
+          errorEl.classList.remove("hidden");
+          pwdInput.classList.add("border-[#ba1a1a]", "focus:ring-[#ba1a1a]/20");
+          pwdInput.value = "";
           pwdInput.focus();
         }
       });
@@ -979,11 +1290,15 @@ import Layout from '../layouts/Layout.astro';
   }
 
   // Logout listener
-  const logoutBtn = document.getElementById('admin-logout-btn');
+  const logoutBtn = document.getElementById("admin-logout-btn");
   if (logoutBtn) {
-    logoutBtn.addEventListener('click', () => {
-      if (confirm('¿Estás seguro de que deseas cerrar sesión en el panel de administración?')) {
-        sessionStorage.removeItem('admin_autenticado');
+    logoutBtn.addEventListener("click", () => {
+      if (
+        confirm(
+          "¿Estás seguro de que deseas cerrar sesión en el panel de administración?",
+        )
+      ) {
+        sessionStorage.removeItem("admin_autenticado");
         window.location.reload();
       }
     });
