@@ -293,6 +293,26 @@ import Layout from "../layouts/Layout.astro";
               class="w-full h-11 px-4 rounded-xl border border-[#c1c8c2] focus:border-[#012d1d] focus:ring-2 focus:ring-[#012d1d]/20 outline-none text-[15px] font-semibold text-[#191c1d]"
             />
           </div>
+
+          <!-- ── Payment Accounts ── -->
+          <div class="bg-white rounded-2xl p-4 shadow-card border border-[#c1c8c2]/20 flex flex-col gap-3">
+            <div class="flex items-center justify-between">
+              <label class="text-[12px] text-[#717973] uppercase font-semibold">Cuentas de Pago</label>
+              <button
+                type="button"
+                id="add-payment-btn"
+                class="flex items-center gap-1 text-[11px] font-bold text-[#012d1d] border border-[#012d1d] px-2.5 py-1 rounded-full hover:bg-[#012d1d] hover:text-white transition-all active:scale-90"
+                title="Agregar cuenta de pago"
+              >
+                <span class="material-symbols-outlined text-[14px]">add</span>
+                Agregar
+              </button>
+            </div>
+            <ul id="payment-accounts-list" class="space-y-2">
+              <!-- rendered by JS -->
+            </ul>
+            <p id="payment-accounts-empty" class="text-[12px] text-[#717973] text-center py-2 hidden">Sin cuentas registradas</p>
+          </div>
           <button
             type="submit"
             class="flex items-center justify-center gap-2 w-full h-12 bg-[#012d1d] text-white rounded-2xl font-semibold text-[14px] active:scale-[0.98] transition-all shadow-card hover:brightness-105"
@@ -556,6 +576,82 @@ import Layout from "../layouts/Layout.astro";
       </div>
     </div>
   </div>
+
+  <!-- ═══════════════ PAYMENT ACCOUNT MODAL ═══════════════ -->
+  <div id="payment-modal" class="hidden fixed inset-0 z-[70] flex items-end">
+    <div class="absolute inset-0 bg-black/50" id="payment-modal-overlay"></div>
+    <div class="relative w-full max-w-[480px] mx-auto bg-white rounded-t-3xl p-6 shadow-elevated z-10">
+      <div class="flex items-center justify-between mb-5">
+        <h3 id="payment-modal-title" class="font-jakarta text-[18px] font-bold text-[#191c1d]">Nueva Cuenta de Pago</h3>
+        <button
+          id="close-payment-modal"
+          class="p-1.5 rounded-full hover:bg-[#edeeef] active:scale-90 transition-all"
+          aria-label="Cerrar"
+          title="Cerrar"
+        >
+          <span class="material-symbols-outlined text-[22px] text-[#414844]">close</span>
+        </button>
+      </div>
+      <div class="space-y-4">
+        <!-- Bank / Platform -->
+        <div class="flex flex-col gap-1">
+          <label for="payment-bank" class="text-[12px] font-semibold text-[#414844]">Banco / Plataforma</label>
+          <select
+            id="payment-bank"
+            class="w-full h-11 px-4 rounded-xl border border-[#c1c8c2] focus:border-[#012d1d] outline-none text-[14px] bg-white"
+          >
+            <option value="Nequi">Nequi</option>
+            <option value="Davivienda">Davivienda</option>
+            <option value="Bancolombia">Bancolombia</option>
+            <option value="Banco de Bogotá">Banco de Bogotá</option>
+            <option value="BBVA">BBVA</option>
+            <option value="Banco Popular">Banco Popular</option>
+            <option value="Efecty">Efecty</option>
+            <option value="Otro">Otro</option>
+          </select>
+        </div>
+        <!-- Custom name (for Otro) -->
+        <div id="payment-custom-name-wrapper" class="flex flex-col gap-1 hidden">
+          <label for="payment-custom-name" class="text-[12px] font-semibold text-[#414844]">Nombre del banco / billetera</label>
+          <input
+            id="payment-custom-name"
+            type="text"
+            placeholder="Ej. Movii"
+            class="w-full h-11 px-4 rounded-xl border border-[#c1c8c2] focus:border-[#012d1d] focus:ring-2 focus:ring-[#012d1d]/20 outline-none text-[14px]"
+          />
+        </div>
+        <!-- Account holder -->
+        <div class="flex flex-col gap-1">
+          <label for="payment-holder" class="text-[12px] font-semibold text-[#414844]">Nombre del titular</label>
+          <input
+            id="payment-holder"
+            type="text"
+            placeholder="Ej. Juan Pérez"
+            class="w-full h-11 px-4 rounded-xl border border-[#c1c8c2] focus:border-[#012d1d] focus:ring-2 focus:ring-[#012d1d]/20 outline-none text-[14px]"
+          />
+        </div>
+        <!-- Account number -->
+        <div class="flex flex-col gap-1">
+          <label for="payment-number" class="text-[12px] font-semibold text-[#414844]">Número de cuenta / celular</label>
+          <input
+            id="payment-number"
+            type="text"
+            inputmode="numeric"
+            placeholder="Ej. 3001234567"
+            class="w-full h-11 px-4 rounded-xl border border-[#c1c8c2] focus:border-[#012d1d] focus:ring-2 focus:ring-[#012d1d]/20 outline-none text-[14px]"
+          />
+        </div>
+        <button
+          id="save-payment-btn"
+          type="button"
+          class="w-full h-12 bg-[#012d1d] text-white font-bold text-[15px] rounded-2xl active:scale-[0.98] transition-all shadow-card"
+          title="Guardar cuenta de pago"
+        >
+          Guardar Cuenta
+        </button>
+      </div>
+    </div>
+  </div>
 </Layout>
 
 <script>
@@ -574,6 +670,13 @@ import Layout from "../layouts/Layout.astro";
     stock: number;
     visible: boolean;
     isPromo: boolean;
+  }
+
+  interface PaymentAccount {
+    id: string;
+    bank: string;
+    holder: string;
+    number: string;
   }
 
   interface StoreConfig {
@@ -610,6 +713,23 @@ import Layout from "../layouts/Layout.astro";
     localStorage.setItem("tienda_config", JSON.stringify(config));
     dispatchEvent(
       new CustomEvent("storage", { detail: { key: "tienda_config" } }),
+    );
+  }
+
+  function getPaymentAccounts(): PaymentAccount[] {
+    const data = localStorage.getItem("tienda_cuentas_pago");
+    return data
+      ? JSON.parse(data)
+      : [
+          { id: "pa-nequi", bank: "Nequi", holder: "Dueño Tienda", number: "3001234567" },
+          { id: "pa-davi", bank: "Davivienda", holder: "Dueño Tienda", number: "0123456789" },
+        ];
+  }
+
+  function savePaymentAccounts(accounts: PaymentAccount[]) {
+    localStorage.setItem("tienda_cuentas_pago", JSON.stringify(accounts));
+    dispatchEvent(
+      new CustomEvent("storage", { detail: { key: "tienda_cuentas_pago" } }),
     );
   }
 
@@ -700,6 +820,61 @@ import Layout from "../layouts/Layout.astro";
       "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=400&q=80",
   };
 
+  // ── Payment Accounts Bank Colors ─────────────
+  const BANK_COLORS: Record<string, { bg: string; text: string; icon: string }> = {
+    Nequi:          { bg: "#6c0f8b", text: "#fff", icon: "smartphone" },
+    Davivienda:     { bg: "#c8102e", text: "#fff", icon: "account_balance" },
+    Bancolombia:    { bg: "#fbbd00", text: "#1a1a1a", icon: "account_balance" },
+    "Banco de Bogotá": { bg: "#003c7e", text: "#fff", icon: "account_balance" },
+    BBVA:           { bg: "#004990", text: "#fff", icon: "account_balance" },
+    "Banco Popular":{ bg: "#009245", text: "#fff", icon: "account_balance" },
+    Efecty:         { bg: "#f5a623", text: "#1a1a1a", icon: "payments" },
+    Otro:           { bg: "#012d1d", text: "#fff", icon: "credit_card" },
+  };
+
+  function getBankStyle(bank: string) {
+    return BANK_COLORS[bank] ?? BANK_COLORS["Otro"];
+  }
+
+  // ── Render Payment Accounts ────────────────────
+  function renderPaymentAccounts() {
+    const listEl = document.getElementById("payment-accounts-list")!;
+    const emptyEl = document.getElementById("payment-accounts-empty")!;
+    const accounts = getPaymentAccounts();
+
+    if (accounts.length === 0) {
+      listEl.innerHTML = "";
+      emptyEl.classList.remove("hidden");
+      return;
+    }
+    emptyEl.classList.add("hidden");
+
+    listEl.innerHTML = accounts
+      .map((acc) => {
+        const style = getBankStyle(acc.bank);
+        return `
+          <li class="flex items-center gap-3 p-2.5 rounded-xl bg-[#f3f4f5] border border-[#c1c8c2]/30" data-payment-id="${acc.id}">
+            <div class="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0" style="background:${style.bg};color:${style.text}">
+              <span class="material-symbols-outlined text-[18px]">${style.icon}</span>
+            </div>
+            <div class="flex-1 min-w-0">
+              <p class="text-[13px] font-bold text-[#191c1d] leading-tight">${acc.bank}</p>
+              <p class="text-[11px] text-[#414844] truncate">${acc.holder} · ${acc.number}</p>
+            </div>
+            <div class="flex items-center gap-1 flex-shrink-0">
+              <button class="edit-payment-btn p-1.5 rounded-lg hover:bg-white active:scale-90 transition-all" title="Editar cuenta">
+                <span class="material-symbols-outlined text-[16px] text-[#414844]">edit</span>
+              </button>
+              <button class="delete-payment-btn p-1.5 rounded-lg hover:bg-[#ffdad6] active:scale-90 transition-all" title="Eliminar cuenta">
+                <span class="material-symbols-outlined text-[16px] text-[#ba1a1a]">delete</span>
+              </button>
+            </div>
+          </li>
+        `;
+      })
+      .join("");
+  }
+
   // ── Render Page Content ────────────────────────
   function loadAndRender() {
     const products = getProducts();
@@ -709,6 +884,9 @@ import Layout from "../layouts/Layout.astro";
     if (nameInput) nameInput.value = config.name;
     if (whatsappInput) whatsappInput.value = config.whatsapp;
     if (scheduleInput) scheduleInput.value = config.schedule;
+
+    // Render payment accounts
+    renderPaymentAccounts();
 
     // Filter products list based on search
     const query = searchInput.value.toLowerCase().trim();
@@ -1127,6 +1305,132 @@ import Layout from "../layouts/Layout.astro";
   addBtnHeader.addEventListener("click", () => openEditModal());
   addBtnFab.addEventListener("click", () => openEditModal());
 
+  // ── Payment Modal Logic ────────────────────────
+  const paymentModal = document.getElementById("payment-modal")!;
+  const paymentModalOverlay = document.getElementById("payment-modal-overlay")!;
+  const closePaymentModal = document.getElementById("close-payment-modal")!;
+  const paymentModalTitle = document.getElementById("payment-modal-title")!;
+  const paymentBankSelect = document.getElementById("payment-bank") as HTMLSelectElement;
+  const paymentCustomNameWrapper = document.getElementById("payment-custom-name-wrapper")!;
+  const paymentCustomName = document.getElementById("payment-custom-name") as HTMLInputElement;
+  const paymentHolder = document.getElementById("payment-holder") as HTMLInputElement;
+  const paymentNumber = document.getElementById("payment-number") as HTMLInputElement;
+  const savePaymentBtn = document.getElementById("save-payment-btn")!;
+  const addPaymentBtn = document.getElementById("add-payment-btn")!;
+
+  let activePaymentId: string | null = null;
+
+  function openPaymentModal(accountId?: string) {
+    activePaymentId = accountId ?? null;
+    paymentModalTitle.textContent = accountId ? "Editar Cuenta de Pago" : "Nueva Cuenta de Pago";
+    savePaymentBtn.textContent = accountId ? "Guardar Cambios" : "Guardar Cuenta";
+
+    if (accountId) {
+      const acc = getPaymentAccounts().find((a) => a.id === accountId);
+      if (acc) {
+        const isKnown = Object.keys(BANK_COLORS).includes(acc.bank) && acc.bank !== "Otro";
+        if (isKnown) {
+          paymentBankSelect.value = acc.bank;
+          paymentCustomNameWrapper.classList.add("hidden");
+          paymentCustomName.value = "";
+        } else {
+          paymentBankSelect.value = "Otro";
+          paymentCustomNameWrapper.classList.remove("hidden");
+          paymentCustomName.value = acc.bank;
+        }
+        paymentHolder.value = acc.holder;
+        paymentNumber.value = acc.number;
+      }
+    } else {
+      paymentBankSelect.value = "Nequi";
+      paymentCustomNameWrapper.classList.add("hidden");
+      paymentCustomName.value = "";
+      paymentHolder.value = "";
+      paymentNumber.value = "";
+    }
+
+    paymentModal.classList.remove("hidden");
+    document.body.style.overflow = "hidden";
+  }
+
+  function closePaymentModalFn() {
+    paymentModal.classList.add("hidden");
+    document.body.style.overflow = "";
+    activePaymentId = null;
+  }
+
+  closePaymentModal.addEventListener("click", closePaymentModalFn);
+  paymentModalOverlay.addEventListener("click", closePaymentModalFn);
+  addPaymentBtn.addEventListener("click", () => openPaymentModal());
+
+  // Show/hide custom name when Otro is selected
+  paymentBankSelect.addEventListener("change", () => {
+    if (paymentBankSelect.value === "Otro") {
+      paymentCustomNameWrapper.classList.remove("hidden");
+    } else {
+      paymentCustomNameWrapper.classList.add("hidden");
+      paymentCustomName.value = "";
+    }
+  });
+
+  savePaymentBtn.addEventListener("click", () => {
+    const bankRaw = paymentBankSelect.value;
+    const bank = bankRaw === "Otro" ? paymentCustomName.value.trim() : bankRaw;
+    const holder = paymentHolder.value.trim();
+    const number = paymentNumber.value.trim();
+
+    if (!bank) { alert("Por favor indica el nombre del banco o plataforma."); return; }
+    if (!holder) { alert("Por favor ingresa el nombre del titular."); paymentHolder.focus(); return; }
+    if (!number) { alert("Por favor ingresa el número de cuenta o celular."); paymentNumber.focus(); return; }
+
+    const accounts = getPaymentAccounts();
+
+    if (activePaymentId) {
+      const acc = accounts.find((a) => a.id === activePaymentId);
+      if (acc) { acc.bank = bank; acc.holder = holder; acc.number = number; }
+    } else {
+      accounts.push({ id: "pa-" + crypto.randomUUID().substring(0, 8), bank, holder, number });
+    }
+
+    savePaymentAccounts(accounts);
+    renderPaymentAccounts();
+    attachPaymentListEvents();
+
+    // Visual feedback
+    savePaymentBtn.textContent = "¡Guardado!";
+    savePaymentBtn.classList.add("bg-green-700", "bg-opacity-100");
+    setTimeout(() => {
+      savePaymentBtn.textContent = activePaymentId ? "Guardar Cambios" : "Guardar Cuenta";
+      savePaymentBtn.classList.remove("bg-green-700", "bg-opacity-100");
+      closePaymentModalFn();
+    }, 900);
+  });
+
+  // Delegate edit/delete on payment list
+  function attachPaymentListEvents() {
+    const listEl = document.getElementById("payment-accounts-list")!;
+    listEl.querySelectorAll(".edit-payment-btn").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const li = btn.closest("[data-payment-id]") as HTMLElement;
+        openPaymentModal(li.dataset.paymentId!);
+      });
+    });
+    listEl.querySelectorAll(".delete-payment-btn").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const li = btn.closest("[data-payment-id]") as HTMLElement;
+        const id = li.dataset.paymentId!;
+        const accounts = getPaymentAccounts();
+        const acc = accounts.find((a) => a.id === id);
+        if (!acc) return;
+        if (!confirm(`¿Eliminar la cuenta de ${acc.bank} (${acc.number})?`)) return;
+        const updated = accounts.filter((a) => a.id !== id);
+        savePaymentAccounts(updated);
+        renderPaymentAccounts();
+        attachPaymentListEvents();
+      });
+    });
+  }
+
   // ── Tab Navigation ─────────────────────────────
   navItems.forEach((btn) => {
     btn.addEventListener("click", () => {
@@ -1194,8 +1498,9 @@ import Layout from "../layouts/Layout.astro";
 
   // ── Reactive storage sync ─────────────────────
   window.addEventListener("storage", (e) => {
-    if (e.key === "tienda_productos" || e.key === "tienda_config") {
+    if (e.key === "tienda_productos" || e.key === "tienda_config" || e.key === "tienda_cuentas_pago") {
       loadAndRender();
+      attachPaymentListEvents();
     }
   });
 
@@ -1210,6 +1515,7 @@ import Layout from "../layouts/Layout.astro";
     dashboardContainer.classList.remove("hidden");
     dashboardContainer.classList.add("flex");
     loadAndRender();
+    attachPaymentListEvents();
   } else {
     // Clear page HTML wrapper to prevent dashboard DOM inspection/bypass
     const wrapper = document.body.firstElementChild as HTMLElement;
